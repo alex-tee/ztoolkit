@@ -16,6 +16,7 @@
 # along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
 
 ztoolkit_srcs = files([
+  'log.c',
   'ztk_app.c',
   'ztk_color.c',
   'ztk_knob.c',

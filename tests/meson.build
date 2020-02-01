@@ -15,4 +15,9 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
 
-# TODO
+e = executable (
+  'log_exe', 'log.c',
+  include_directories: inc_dirs,
+  link_with: ztoolkit_lib,
+  )
+test ('log_test', e)

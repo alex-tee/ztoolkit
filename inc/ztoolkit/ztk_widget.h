@@ -1,20 +1,20 @@
 /*
- * Copyright (C) 2019 Alexandros Theodotou <alex at zrythm dot org>
+ * Copyright (C) 2019-2020 Alexandros Theodotou <alex at zrythm dot org>
  *
- * This file is part of ZPlugins
+ * This file is part of ZToolkit
  *
- * ZPlugins is free software: you can redistribute it and/or modify
+ * ZToolkit is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
- * ZPlugins is distributed in the hope that it will be useful,
+ * ZToolkit is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU General Affero Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /**
@@ -62,14 +62,25 @@ typedef enum ZtkWidgetState
   ZTK_WIDGET_STATE_PRESSED = 1  << 3,
 } ZtkWidgetState;
 
-//typedef enum ZtkWidgetType
-//{
-  //ZTK_WIDGET_TYPE_KNOB,
-  //ZTK_WIDGET_TYPE_CUSTOM,
-//} ZtkWidgetType;
-//
+typedef enum ZtkWidgetType
+{
+  ZTK_WIDGET_TYPE_NONE,
+  ZTK_WIDGET_TYPE_LABEL,
+  ZTK_WIDGET_TYPE_KNOB,
+  ZTK_WIDGET_TYPE_DRAWING_AREA,
+} ZtkWidgetType;
 
 typedef struct ZtkWidget ZtkWidget;
+
+/**
+ * Prototype for callbacks.
+ *
+ * @param widget The ZtkWidget instance.
+ * @param data User data passed when instantiating the drawing area.
+ */
+typedef void (*ZtkWidgetCallback) (
+  ZtkWidget * widget,
+  void *      data);
 
 /**
  * Base widget.
@@ -86,11 +97,8 @@ typedef struct ZtkWidget
 
   /**
    * The type this widget is.
-   *
-   * Custom widgets should be
-   * ZTK_WIDGET_TYPE_CUSTOM + increasing numbers.
    */
-  //ZtkWidgetType     type;
+  ZtkWidgetType     type;
 
   /** Update callback (called right before drawing)
    * (required. */
@@ -147,6 +155,9 @@ typedef struct ZtkWidget
   cairo_t *         cached_cr;
   cairo_surface_t * cached_surface;
 
+  /** User data. */
+  void *            user_data;
+
 } ZtkWidget;
 
 /**
@@ -171,6 +182,14 @@ ztk_widget_is_hit (
   ZtkWidget * self,
   double      x,
   double      y);
+
+/**
+ * Sets the user data.
+ */
+void
+ztk_widget_set_user_data (
+  ZtkWidget * self,
+  void *      data);
 
 /**
  * Draws the widget.
