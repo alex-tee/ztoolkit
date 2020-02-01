@@ -163,6 +163,7 @@ subdir('tests')
 # subproject
 ztoolkit_dep = declare_dependency (
   include_directories: inc_dirs,
+  dependencies: deps,
   link_with: ztoolkit_lib)
 
 if not meson.is_subproject()

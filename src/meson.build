@@ -37,5 +37,7 @@ ztoolkit_lib = static_library(
   install: not meson.is_subproject(),
   )
 
-install_headers(
-  installable_headers, subdir: 'ztoolkit')
+if not meson.is_subproject()
+  install_headers(
+    installable_headers, subdir: 'ztoolkit')
+endif
