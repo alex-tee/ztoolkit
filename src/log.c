@@ -34,6 +34,8 @@
 #define COLOR_CYAN    "\x1b[36m"
 #define COLOR_RESET   "\x1b[0m"
 
+#define BOLD "\x1b[1m"
+
 /**
  * Fills in the timestamp as a string into \ref buf.
  */
@@ -74,26 +76,28 @@ ztk_log (
   switch (level)
     {
     case ZTK_LOG_LEVEL_DEBUG:
-      strcat (
-        buf, COLOR_CYAN "DEBUG: " COLOR_RESET);
+      strcat ( buf, BOLD COLOR_CYAN "DEBUG ");
       break;
     case ZTK_LOG_LEVEL_MESSAGE:
       strcat (
-        buf,
-        COLOR_GREEN "MESSAGE: " COLOR_RESET);
+        buf, BOLD COLOR_GREEN "MESSAGE ");
       break;
     case ZTK_LOG_LEVEL_WARNING:
       strcat (
-        buf,
-        COLOR_YELLOW "WARNING: " COLOR_RESET);
+        buf, BOLD COLOR_YELLOW "WARNING ");
       break;
     case ZTK_LOG_LEVEL_ERROR:
       strcat (
-        buf, COLOR_RED "ERROR: " COLOR_RESET);
+        buf, BOLD COLOR_RED "ERROR ");
       break;
     default:
       break;
     }
+
+  /* print the function name */
+  char func_part[600];
+  sprintf (func_part, "(%s)" COLOR_RESET ": ", func);
+  strcat (buf, func_part);
 
   /* get current time as string*/
   char cur_time[200];
