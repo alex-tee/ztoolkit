@@ -4,7 +4,7 @@ ZToolkit
 ZToolkit (Ztk) is a GUI toolkit for LV2 plugins
 heavily inspired by GTK.
 
-ZToolkit handles events and low level drawing on
+It handles events and low level drawing on
 behalf of the user and provides a high-level API
 for managing the UI and custom widgets.
 
@@ -14,18 +14,26 @@ digital audio workstation.
 
 This is a work in progress.
 
+Dependencies
+------------
+Cairo and X11
+
+Building
+--------
+
+    meson build
+    ninja -C build
+    ninja -C build install
+
 Usage
 -----
-All of the API is exposed in a single header for
-convenience.
+ZToolkit will install a static library that can be
+linked to. All of the API is exposed in a single
+header for convenience.
 
     #include <ztoolkit/ztk.h>
 
 Docs are coming soon.
-
-Dependencies
-------------
-Cairo and X11
 
 License
 -------

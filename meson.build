@@ -159,6 +159,23 @@ subdir('inc')
 subdir('src')
 subdir('tests')
 
+# this is so that it can be used as a meson
+# subproject
+ztoolkit_dep = declare_dependency (
+  include_directories: inc_dirs,
+  link_with: ztoolkit_lib)
+
+if not meson.is_subproject()
+  pkg_mod = import('pkgconfig')
+  pkg_mod.generate(
+    libraries: ztoolkit_lib,
+    version: '0.1',
+    name: 'ztoolkit',
+    filebase: 'ztoolkit',
+    description: 'A GUI toolkit for LV2 plugins',
+    )
+endif
+
 if meson.version().version_compare('>=0.53')
 summary({
   'Build type': get_option('buildtype'),
