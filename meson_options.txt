@@ -20,3 +20,10 @@ option (
   type: 'boolean',
   value: false,
   description: 'Enable strict compilation flags')
+
+option (
+  'enable_rsvg',
+  type: 'boolean',
+  value: false,
+  description: '''Enable SVG support through librsvg.
+This requires the whole glib stack.''')

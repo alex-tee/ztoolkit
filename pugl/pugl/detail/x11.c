@@ -622,19 +622,44 @@ mergeExposeEvents(PuglEvent* dst, const PuglEvent* src)
 }
 
 static void
+addPendingExpose(PuglView* view, const PuglEvent* expose)
+{
+	if (view->impl->pendingConfigure.type ||
+	    (view->impl->pendingExpose.type &&
+	     exposeEventsIntersect(&view->impl->pendingExpose, expose))) {
+		// Pending configure or an intersecting expose, expand it
+		mergeExposeEvents(&view->impl->pendingExpose, expose);
+	} else {
+		if (view->impl->pendingExpose.type) {
+			// Pending non-intersecting expose, dispatch it now
+			// This isn't ideal, but avoids needing to maintain an expose list
+			puglEnterContext(view, true);
+			puglDispatchEvent(view, &view->impl->pendingExpose);
+			puglLeaveContext(view, true);
+		}
+
+		view->impl->pendingExpose = *expose;
+	}
+}
+
+static void
 flushPendingConfigure(PuglView* view)
 {
 	PuglEvent* const configure = &view->impl->pendingConfigure;
 
 	if (configure->type) {
-		view->frame.x      = configure->configure.x;
-		view->frame.y      = configure->configure.y;
-		view->frame.width  = configure->configure.width;
-		view->frame.height = configure->configure.height;
+		view->frame.x = configure->configure.x;
+		view->frame.y = configure->configure.y;
 
-		view->backend->resize(view,
-		                      (int)view->frame.width,
-		                      (int)view->frame.height);
+		if (configure->configure.width != view->frame.width ||
+		    configure->configure.height != view->frame.height) {
+			view->frame.width  = configure->configure.width;
+			view->frame.height = configure->configure.height;
+
+			view->backend->resize(view,
+			                      (int)view->frame.width,
+			                      (int)view->frame.height);
+		}
 
 		view->eventFunc(view, configure);
 		configure->type = 0;
@@ -649,6 +674,8 @@ puglDispatchEvents(PuglWorld* world)
 	// Flush just once at the start to fill event queue
 	Display* display = world->impl->display;
 	XFlush(display);
+
+	world->impl->dispatchingEvents = true;
 
 	// Process all queued events (locally, without flushing or reading)
 	while (XEventsQueued(display, QueuedAlready) > 0) {
@@ -730,20 +757,7 @@ puglDispatchEvents(PuglWorld* world)
 
 		if (event.type == PUGL_EXPOSE) {
 			// Expand expose event to be dispatched after loop
-			if (view->impl->pendingConfigure.type ||
-			    (view->impl->pendingExpose.type &&
-			     exposeEventsIntersect(&view->impl->pendingExpose, &event))) {
-				mergeExposeEvents(&view->impl->pendingExpose, &event);
-			} else {
-				if (view->impl->pendingExpose.type) {
-					puglEnterContext(view, true);
-					flushPendingConfigure(view);
-					puglDispatchEvent(view, &view->impl->pendingExpose);
-					puglLeaveContext(view, true);
-				}
-
-				view->impl->pendingExpose = event;
-			}
+			addPendingExpose(view, &event);
 		} else if (event.type == PUGL_CONFIGURE) {
 			// Expand configure event to be dispatched after loop
 			view->impl->pendingConfigure = event;
@@ -775,6 +789,8 @@ puglDispatchEvents(PuglWorld* world)
 		}
 	}
 
+	world->impl->dispatchingEvents = false;
+
 	return PUGL_SUCCESS;
 }
 
@@ -803,18 +819,26 @@ puglPostRedisplay(PuglView* view)
 PuglStatus
 puglPostRedisplayRect(PuglView* view, PuglRect rect)
 {
-	const int x = (int)floor(rect.x);
-	const int y = (int)floor(rect.y);
-	const int w = (int)ceil(rect.x + rect.width) - x;
-	const int h = (int)ceil(rect.y + rect.height) - y;
+	if (view->world->impl->dispatchingEvents) {
+		// Currently dispatching events, add/expand expose for the loop end
+		const PuglEventExpose event = {
+			PUGL_EXPOSE, 0, rect.x, rect.y, rect.width, rect.height, 0
+		};
 
-	XExposeEvent ev = {Expose, 0, True,
-	                   view->impl->display, view->impl->win,
-	                   x, y,
-	                   w, h,
-	                   0};
+		addPendingExpose(view, (const PuglEvent*)&event);
+	} else if (view->visible) {
+		// Not dispatching events, send an X expose so we wake up next time
+		const int x = (int)floor(rect.x);
+		const int y = (int)floor(rect.y);
+		const int w = (int)ceil(rect.x + rect.width) - x;
+		const int h = (int)ceil(rect.y + rect.height) - y;
 
-	if (view->visible) {
+		XExposeEvent ev = {Expose, 0, True,
+		                   view->impl->display, view->impl->win,
+		                   x, y,
+		                   w, h,
+		                   0};
+
 		XSendEvent(view->impl->display, view->impl->win, False, 0, (XEvent*)&ev);
 	}
 
