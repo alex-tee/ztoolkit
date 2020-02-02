@@ -73,13 +73,26 @@ typedef enum ZtkWidgetType
 typedef struct ZtkWidget ZtkWidget;
 
 /**
- * Prototype for callbacks.
+ * Prototype for generic callbacks.
  *
  * @param widget The ZtkWidget instance.
  * @param data User data passed when instantiating the drawing area.
  */
-typedef void (*ZtkWidgetCallback) (
+typedef void (*ZtkWidgetGenericCallback) (
   ZtkWidget * widget,
+  void *      data);
+
+/**
+ * Prototype for draw callbacks.
+ *
+ * @param widget The ZtkWidget instance.
+ * @param cr The cairo context to draw to.
+ * @param data User data passed during
+ *   instantiation.
+ */
+typedef void (*ZtkWidgetDrawCallback) (
+  ZtkWidget * widget,
+  cairo_t *   cr,
   void *      data);
 
 /**
@@ -102,13 +115,17 @@ typedef struct ZtkWidget
 
   /** Update callback (called right before drawing)
    * (required. */
-  void (*update_cb) (ZtkWidget *);
+  ZtkWidgetGenericCallback update_cb;
 
   /** Draw callback (required). */
-  void (*draw_cb) (ZtkWidget *, cairo_t *);
+  ZtkWidgetDrawCallback draw_cb;
 
   /** Free callback (required). */
-  void (*free_cb) (ZtkWidget *);
+  ZtkWidgetGenericCallback free_cb;
+
+  /** Dispose callback, called right before freeing
+   * (optional). */
+  ZtkWidgetGenericCallback dispose_cb;
 
   /**
    * Button event callback (optional).
@@ -169,9 +186,9 @@ void
 ztk_widget_init (
   ZtkWidget *       self,
   PuglRect *        rect,
-  void (*update_cb) (ZtkWidget *),
-  void (*draw_cb) (ZtkWidget *, cairo_t *),
-  void (*free_cb) (ZtkWidget *));
+  ZtkWidgetGenericCallback update_cb,
+  ZtkWidgetDrawCallback draw_cb,
+  ZtkWidgetGenericCallback free_cb);
 
 /**
  * Returns if the widget is hit by the given
@@ -190,14 +207,6 @@ void
 ztk_widget_set_user_data (
   ZtkWidget * self,
   void *      data);
-
-/**
- * Draws the widget.
- */
-void
-ztk_widget_draw (
-  ZtkWidget * self,
-  cairo_t *   cr);
 
 /**
  * @}

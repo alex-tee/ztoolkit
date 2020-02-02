@@ -28,9 +28,9 @@ void
 ztk_widget_init (
   ZtkWidget *       self,
   PuglRect *        rect,
-  void (*update_cb) (ZtkWidget *),
-  void (*draw_cb) (ZtkWidget *, cairo_t *),
-  void (*free_cb) (ZtkWidget *))
+  ZtkWidgetGenericCallback update_cb,
+  ZtkWidgetDrawCallback draw_cb,
+  ZtkWidgetGenericCallback free_cb)
 {
   self->rect = *rect;
   self->update_cb = update_cb;
@@ -65,21 +65,3 @@ ztk_widget_set_user_data (
 {
   self->user_data = data;
 }
-
-/**
- * Draws the widget.
- */
-void
-ztk_widget_draw (
-  ZtkWidget * self,
-  cairo_t *   cr)
-{
-  self->draw_cb (self, cr);
-}
-
-/**
- * Frees the widget.
- */
-void
-ztk_widget_free (
-  ZtkWidget * self);

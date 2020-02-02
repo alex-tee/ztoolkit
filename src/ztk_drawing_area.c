@@ -17,34 +17,30 @@
  * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/**
- * \file
- *
- * Widget for custom drawing.
- */
+#include "ztoolkit/ztk_drawing_area.h"
 
-#ifndef __Z_TOOLKIT_ZTK_DRAWING_AREA_H__
-#define __Z_TOOLKIT_ZTK_DRAWING_AREA_H__
-
-#include "ztoolkit/ztk_widget.h"
-
-/**
- * @addtogroup ztoolkit
- *
- * @{
- */
-
-/**
- * Drawing area widget.
- *
- * This is used for custom drawing.
- */
-typedef struct ZtkDrawingArea
+static void
+ztk_drawing_area_update (
+  ZtkWidget * widget,
+  void *      data)
 {
-  /** Base widget. */
-  ZtkWidget         base;
+}
 
-} ZtkDrawingArea;
+static void
+ztk_drawing_area_free (
+  ZtkWidget * widget,
+  void *      data)
+{
+  ZtkDrawingArea * self = (ZtkDrawingArea *) widget;
+
+  if (widget->dispose_cb)
+    {
+      widget->dispose_cb (
+        widget, widget->user_data);
+    }
+
+  free (self);
+}
 
 /**
  * Creates a new ZtkDrawingArea.
@@ -53,7 +49,7 @@ typedef struct ZtkDrawingArea
  *   for updating the user data based on the current
  *   state of the widget. See ztk_knob.c for an
  *   example.
- * @param draw_cb Draw callback. This will be called
+ * @param draw_cb Required callback to be called
  *   when the widget needs to redraw itself.
  * @param dispose_cb Optional callback to be called
  *   when disposing the widget. This will be called
@@ -66,10 +62,17 @@ ztk_drawing_area_new (
   ZtkWidgetGenericCallback  update_cb,
   ZtkWidgetDrawCallback  draw_cb,
   ZtkWidgetGenericCallback  dispose_cb,
-  void *             data);
+  void *             data)
+{
+  ZtkDrawingArea * self =
+    calloc (1, sizeof (ZtkDrawingArea));
+  ztk_widget_init (
+    (ZtkWidget *) self, rect,
+    update_cb ? update_cb : ztk_drawing_area_update,
+    draw_cb,
+    ztk_drawing_area_free);
 
-/**
- * @}
- */
+  return self;
+}
 
 #endif

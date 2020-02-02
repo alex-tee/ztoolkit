@@ -55,7 +55,8 @@
 static void
 ztk_knob_draw_cb (
   ZtkWidget * widget,
-  cairo_t * cr)
+  cairo_t *   cr,
+  void *      data)
 {
   ZtkKnob * self = (ZtkKnob *) widget;
   PuglRect * rect = &widget->rect;
@@ -206,7 +207,8 @@ ztk_knob_draw_cb (
 
 static void
 ztk_knob_update_cb (
-  ZtkWidget * w)
+  ZtkWidget * w,
+  void *      data)
 {
   ZtkKnob * self = (ZtkKnob *) w;
   ZtkApp * app = w->app;
@@ -227,7 +229,8 @@ ztk_knob_update_cb (
 
 static void
 ztk_knob_free (
-  ZtkWidget * widget)
+  ZtkWidget * widget,
+  void *      data)
 {
   ZtkKnob * self = (ZtkKnob *) widget;
 

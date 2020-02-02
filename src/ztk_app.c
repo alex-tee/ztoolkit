@@ -46,7 +46,7 @@ on_expose (
   for (int i = 0; i < self->num_widgets; i++)
     {
       w = self->widgets[i];
-      w->update_cb (w);
+      w->update_cb (w, w->user_data);
     }
 
   cairo_t* cr = (cairo_t*)puglGetContext(view);
@@ -385,7 +385,8 @@ ztk_app_draw (
   for (int i = 0; i < self->num_widgets; i++)
     {
       ZtkWidget * widget = self->widgets[i];
-      ztk_widget_draw (widget, cr);
+      widget->draw_cb (
+        widget, cr, widget->user_data);
     }
 }
 

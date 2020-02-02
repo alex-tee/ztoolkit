@@ -1,20 +1,20 @@
 /*
  * Copyright (C) 2019 Alexandros Theodotou <alex at zrythm dot org>
  *
- * This file is part of ZPlugins
+ * This file is part of ZToolkit
  *
- * ZPlugins is free software: you can redistribute it and/or modify
+ * ZToolkit is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
  *
- * ZPlugins is distributed in the hope that it will be useful,
+ * ZToolkit is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU General Affero Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #include <stdlib.h>
@@ -25,25 +25,38 @@
 static void
 ztk_label_draw_cb (
   ZtkWidget * widget,
-  cairo_t *   cr)
+  cairo_t *   cr,
+  void *      data)
 {
   ZtkLabel * self = (ZtkLabel *) widget;
 
-	// Draw label
-	cairo_text_extents_t extents;
-	cairo_set_font_size(cr, self->font_size);
-	cairo_text_extents(cr, self->label, &extents);
-	cairo_move_to(
+  // Draw label
+  cairo_text_extents_t extents;
+  cairo_set_font_size(cr, self->font_size);
+  cairo_text_extents(cr, self->label, &extents);
+  cairo_move_to(
     cr, widget->rect.x, widget->rect.y);
   ztk_color_set_for_cairo (
     &self->color, cr);
-	cairo_show_text (cr, self->label);
+  cairo_show_text (cr, self->label);
 }
 
 static void
 ztk_label_update_cb (
-  ZtkWidget * widget)
+  ZtkWidget * widget,
+  void *      data)
 {
+}
+
+static void
+ztk_label_free (
+  ZtkWidget * widget,
+  void *      data)
+{
+  ZtkLabel * self = (ZtkLabel *) widget;
+  if (self->label)
+    free (self->label);
+  free (self);
 }
 
 /**
@@ -71,14 +84,4 @@ ztk_label_new (
   self->color = *color;
 
   return self;
-}
-
-void
-ztk_label_free (
-  ZtkWidget * widget)
-{
-  ZtkLabel * self = (ZtkLabel *) widget;
-  if (self->label)
-    free (self->label);
-  free (self);
 }

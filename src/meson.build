@@ -26,6 +26,11 @@ ztoolkit_srcs = files([
   'ztk_widget.c',
   ])
 
+ztoolkit_cargs = common_cflags
+if not meson.is_subproject()
+  ztoolkit_cargs += strict_cflags
+endif
+
 ztoolkit_lib = static_library(
   'ztoolkit',
   sources: [
@@ -35,6 +40,7 @@ ztoolkit_lib = static_library(
   dependencies: deps,
   include_directories: inc_dirs,
   link_whole: pugl,
+  c_args: ztoolkit_cargs,
   install: not meson.is_subproject(),
   )
 

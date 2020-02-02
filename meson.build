@@ -87,7 +87,7 @@ common_cflags = cc.get_supported_arguments([
   '-Wno-cast-function-type',
   ])
 if get_option ('strict_flags')
-  common_cflags += cc.get_supported_arguments([
+  strict_cflags = cc.get_supported_arguments([
     #'-Werror=cast-qual',
     '-Werror=clobbered',
     #'-Werror=conversion',
@@ -140,13 +140,9 @@ if get_option ('strict_flags')
     '-Werror=deprecated-declarations',
     '-Werror=format-extra-args',
     '-Werror=format',
+    '-Wextra',
+    '-Weverything',
     ])
-  if cc.get_id() == 'gcc'
-    common_cflags += cc.get_supported_arguments([
-      '-Wextra',
-      '-Weverything',
-      ])
-  endif
 endif
 
 add_project_arguments (

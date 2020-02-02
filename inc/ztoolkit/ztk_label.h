@@ -49,8 +49,4 @@ ztk_label_new (
   ZtkColor *   color,
   const char * lbl);
 
-void
-ztk_label_free (
-  ZtkWidget * self);
-
 #endif

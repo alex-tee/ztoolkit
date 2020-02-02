@@ -27,31 +27,34 @@
 static void
 ztk_knob_with_label_draw_cb (
   ZtkWidget * widget,
-  cairo_t *   cr)
+  cairo_t *   cr,
+  void *      data)
 {
   ZtkKnobWithLabel * self =
     (ZtkKnobWithLabel *) widget;
   ZtkWidget * knob_w = (ZtkWidget *) self->knob;
-  knob_w->draw_cb (knob_w, cr);
+  knob_w->draw_cb (knob_w, cr, knob_w->user_data);
   ZtkWidget * label_w = (ZtkWidget *) self->label;
-  label_w->draw_cb (label_w, cr);
+  label_w->draw_cb (label_w, cr, knob_w->user_data);
 }
 
 static void
 ztk_knob_with_label_update_cb (
-  ZtkWidget * widget)
+  ZtkWidget * widget,
+  void *      data)
 {
   ZtkKnobWithLabel * self =
     (ZtkKnobWithLabel *) widget;
   ZtkWidget * knob_w = (ZtkWidget *) self->knob;
-  knob_w->update_cb (knob_w);
+  knob_w->update_cb (knob_w, knob_w->user_data);
   ZtkWidget * label_w = (ZtkWidget *) self->label;
-  label_w->update_cb (label_w);
+  label_w->update_cb (label_w, knob_w->user_data);
 }
 
 static void
 ztk_knob_with_label_free (
-  ZtkWidget * widget)
+  ZtkWidget * widget,
+  void *      data)
 {
   ZtkKnobWithLabel * self =
     (ZtkKnobWithLabel *) widget;
