@@ -16,12 +16,14 @@ This is a work in progress.
 
 Dependencies
 ------------
-Cairo and X11
+Required: Cairo and X11
+
+Optional: Librsvg (for SVG support)
 
 Building
 --------
 
-    meson build
+    meson build -Denable_rsvg=true
     ninja -C build
     ninja -C build install
 

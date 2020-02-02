@@ -17,6 +17,7 @@
 
 ztoolkit_srcs = files([
   'log.c',
+  'rsvg.c',
   'ztk_app.c',
   'ztk_color.c',
   'ztk_drawing_area.c',

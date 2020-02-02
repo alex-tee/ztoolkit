@@ -76,14 +76,15 @@ endif
 
 # create config.h
 config_h = configure_file (
-  output: 'config.h',
+  output: 'ztoolkit_config.h',
   configuration: cdata,
   )
 
 # include dirs
 inc_dirs = [
-  include_directories ('inc'),
-  include_directories ('pugl'),
+  include_directories('.'),
+  include_directories('inc'),
+  include_directories('pugl'),
   ]
 
 # cflags

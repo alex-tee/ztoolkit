@@ -22,6 +22,7 @@
 
 #include "ztoolkit/log.h"
 #include "ztoolkit/types.h"
+#include "ztoolkit/rsvg.h"
 #include "ztoolkit/ztk_app.h"
 #include "ztoolkit/ztk_color.h"
 #include "ztoolkit/ztk_drawing_area.h"
