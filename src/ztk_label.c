@@ -71,7 +71,7 @@ ztk_label_new (
   const char * lbl)
 {
   ZtkLabel * self = calloc (1, sizeof (ZtkLabel));
-  PuglRect rect = {
+  ZtkRect rect = {
     x, y, 0, 0,
   };
   ztk_widget_init (

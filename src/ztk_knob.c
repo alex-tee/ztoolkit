@@ -59,7 +59,7 @@ ztk_knob_draw_cb (
   void *      data)
 {
   ZtkKnob * self = (ZtkKnob *) widget;
-  PuglRect * rect = &widget->rect;
+  ZtkRect * rect = &widget->rect;
   int width = (int) rect->width;
   int height = (int) rect->height;
 
@@ -248,7 +248,7 @@ ztk_knob_free (
  */
 ZtkKnob *
 ztk_knob_new (
-  PuglRect * rect,
+  ZtkRect * rect,
   float (*get_val)(void *),
   void (*set_val)(void *, float),
   void * object,

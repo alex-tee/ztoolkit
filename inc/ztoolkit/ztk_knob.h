@@ -63,7 +63,7 @@ typedef struct ZtkKnob
  */
 ZtkKnob *
 ztk_knob_new (
-  PuglRect * rect,
+  ZtkRect * rect,
   float (*get_val)(void *),
   void (*set_val)(void *, float),
   void * object,

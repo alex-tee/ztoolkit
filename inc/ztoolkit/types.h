@@ -17,29 +17,18 @@
  * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __Z_TOOLKIT_ZTK_H__
-#define __Z_TOOLKIT_ZTK_H__
+#ifndef __ZTOOLKIT_TYPES_H__
+#define __ZTOOLKIT_TYPES_H__
 
-#include "ztoolkit/log.h"
-#include "ztoolkit/types.h"
-#include "ztoolkit/ztk_app.h"
-#include "ztoolkit/ztk_color.h"
-#include "ztoolkit/ztk_drawing_area.h"
-#include "ztoolkit/ztk_knob.h"
-#include "ztoolkit/ztk_knob_with_label.h"
-#include "ztoolkit/ztk_label.h"
-#include "ztoolkit/ztk_widget.h"
-
-#ifndef MAX
-# define MAX(x,y) (x > y ? x : y)
-#endif
-
-#ifndef MIN
-# define MIN(x,y) (x < y ? x : y)
-#endif
-
-#ifndef CLAMP
-# define CLAMP(x, low, high)  (((x) > (high)) ? (high) : (((x) < (low)) ? (low) : (x)))
-#endif
+/**
+ * Wrapper over PuglRect.
+ */
+typedef struct ZtkRect
+{
+  double x;
+  double y;
+  double width;
+  double height;
+} ZtkRect;
 
 #endif

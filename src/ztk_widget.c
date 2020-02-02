@@ -27,7 +27,7 @@
 void
 ztk_widget_init (
   ZtkWidget *       self,
-  PuglRect *        rect,
+  ZtkRect *        rect,
   ZtkWidgetGenericCallback update_cb,
   ZtkWidgetDrawCallback draw_cb,
   ZtkWidgetGenericCallback free_cb)

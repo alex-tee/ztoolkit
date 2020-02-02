@@ -26,6 +26,8 @@
 #ifndef __Z_TOOLKIT_ZTK_WIDGET_H__
 #define __Z_TOOLKIT_ZTK_WIDGET_H__
 
+#include <ztoolkit/types.h>
+
 #include <cairo.h>
 #include <pugl/pugl.h>
 
@@ -55,7 +57,7 @@ typedef enum ZtkEventChain
 typedef enum ZtkWidgetState
 {
   /** Normal state. */
-	ZTK_WIDGET_STATE_NORMAL = 1,
+  ZTK_WIDGET_STATE_NORMAL = 1,
 
   ZTK_WIDGET_STATE_HOVERED = 1 << 1,
   ZTK_WIDGET_STATE_SELECTED = 1 << 2,
@@ -104,7 +106,7 @@ typedef struct ZtkWidget
   ZtkApp *          app;
 
   /** Rectangle. */
-  PuglRect          rect;
+  ZtkRect           rect;
 
   ZtkWidgetState    state;
 
@@ -166,7 +168,7 @@ typedef struct ZtkWidget
   int               redraw;
 
   /** Last rectangle drawn in. */
-  PuglRect          last_draw_rect;
+  ZtkRect           last_draw_rect;
 
   /** Cairo caches. */
   cairo_t *         cached_cr;
@@ -185,7 +187,7 @@ typedef struct ZtkWidget
 void
 ztk_widget_init (
   ZtkWidget *       self,
-  PuglRect *        rect,
+  ZtkRect *        rect,
   ZtkWidgetGenericCallback update_cb,
   ZtkWidgetDrawCallback draw_cb,
   ZtkWidgetGenericCallback free_cb);

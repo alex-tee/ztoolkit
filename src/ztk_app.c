@@ -279,9 +279,8 @@ on_event (
  */
 ZtkApp *
 ztk_app_new (
-  PuglWorld *      world,
   const char *     title,
-  PuglNativeWindow parent,
+  void*            parent,
   int              width,
   int              height)
 {
@@ -289,9 +288,8 @@ ztk_app_new (
 
   ztk_theme_init (&self->theme);
 
-  self->world = world;
+  self->world = puglNewWorld ();
   self->title = strdup (title);
-  /*self->parent = parent;*/
   self->width = width;
   self->height = height;
   self->widgets = calloc (1, sizeof (ZtkWidget *));
@@ -313,7 +311,7 @@ ztk_app_new (
   if (parent)
     {
       puglSetParentWindow (
-        self->view, parent);
+        self->view, (PuglNativeWindow) parent);
     }
 
   if (puglCreateWindow (self->view, "Pugl Test"))

@@ -62,7 +62,7 @@ typedef struct ZtkKnobWithLabel
  */
 ZtkKnobWithLabel *
 ztk_knob_with_label_new (
-  PuglRect * rect,
+  ZtkRect * rect,
   ZtkKnob *  knob,
   ZtkLabel * label);
 

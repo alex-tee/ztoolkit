@@ -60,7 +60,7 @@ ztk_drawing_area_free (
  */
 ZtkDrawingArea *
 ztk_drawing_area_new (
-  PuglRect *         rect,
+  ZtkRect *         rect,
   ZtkWidgetGenericCallback  update_cb,
   ZtkWidgetDrawCallback  draw_cb,
   ZtkWidgetGenericCallback  dispose_cb,
