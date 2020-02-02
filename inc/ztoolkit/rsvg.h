@@ -20,6 +20,10 @@
 #ifndef __ZTOOLKIT_RSVG_H__
 #define __ZTOOLKIT_RSVG_H__
 
+#include "ztoolkit_config.h"
+
+#ifdef HAVE_RSVG
+
 #include <cairo.h>
 
 typedef void ZtkRsvgHandle;
@@ -57,5 +61,7 @@ ztk_rsvg_draw (
   ZtkRsvgHandle * handle,
   cairo_t *       cr,
   ZtkRect *       rect);
+
+#endif // if HAVE_RSVG
 
 #endif // header guard

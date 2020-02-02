@@ -79,6 +79,7 @@ config_h = configure_file (
   output: 'ztoolkit_config.h',
   configuration: cdata,
   )
+installable_headers = [ config_h ]
 
 # include dirs
 inc_dirs = [

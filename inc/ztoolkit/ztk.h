@@ -20,16 +20,17 @@
 #ifndef __Z_TOOLKIT_ZTK_H__
 #define __Z_TOOLKIT_ZTK_H__
 
-#include "ztoolkit/log.h"
-#include "ztoolkit/types.h"
-#include "ztoolkit/rsvg.h"
-#include "ztoolkit/ztk_app.h"
-#include "ztoolkit/ztk_color.h"
-#include "ztoolkit/ztk_drawing_area.h"
-#include "ztoolkit/ztk_knob.h"
-#include "ztoolkit/ztk_knob_with_label.h"
-#include "ztoolkit/ztk_label.h"
-#include "ztoolkit/ztk_widget.h"
+#include "ztoolkit_config.h"
+#include "log.h"
+#include "types.h"
+#include "rsvg.h"
+#include "ztk_app.h"
+#include "ztk_color.h"
+#include "ztk_drawing_area.h"
+#include "ztk_knob.h"
+#include "ztk_knob_with_label.h"
+#include "ztk_label.h"
+#include "ztk_widget.h"
 
 #ifndef MAX
 # define MAX(x,y) (x > y ? x : y)

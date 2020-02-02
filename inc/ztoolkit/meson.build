@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
 
-installable_headers = files([
+installable_headers += files([
   'ztk_app.h',
   'ztk_color.h',
   'ztk_knob.h',
