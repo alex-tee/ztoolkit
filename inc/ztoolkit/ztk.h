@@ -14,7 +14,7 @@
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU General Affero Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 #ifndef __Z_TOOLKIT_ZTK_H__
@@ -22,6 +22,7 @@
 
 #include "ztoolkit/ztk_app.h"
 #include "ztoolkit/ztk_color.h"
+#include "ztoolkit/ztk_drawing_area.h"
 #include "ztoolkit/ztk_knob.h"
 #include "ztoolkit/ztk_knob_with_label.h"
 #include "ztoolkit/ztk_label.h"

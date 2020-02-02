@@ -19,6 +19,7 @@ ztoolkit_srcs = files([
   'log.c',
   'ztk_app.c',
   'ztk_color.c',
+  'ztk_drawing_area.c',
   'ztk_knob.c',
   'ztk_knob_with_label.c',
   'ztk_label.c',

@@ -17,6 +17,8 @@
  * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
+
 #include "ztoolkit/ztk_drawing_area.h"
 
 static void
@@ -74,5 +76,3 @@ ztk_drawing_area_new (
 
   return self;
 }
-
-#endif

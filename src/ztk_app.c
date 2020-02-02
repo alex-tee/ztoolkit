@@ -51,10 +51,12 @@ on_expose (
 
   cairo_t* cr = (cairo_t*)puglGetContext(view);
 
-  // Draw background
   const PuglRect frame  = puglGetFrame(view);
   const double   width  = frame.width;
   const double   height = frame.height;
+
+#if 0
+  // Draw background
   ztk_color_set_for_cairo (
     &self->theme.bg_dark_variant2, cr);
   cairo_rectangle(cr, 0, 0, width, height);
@@ -79,6 +81,7 @@ on_expose (
     padding * 2.3 + extents.height);
   cairo_set_source_rgba(cr, 1, 1, 1, 1);
   cairo_show_text(cr, lbl);
+#endif
 
   // Scale to view size
   const double scaleX =
