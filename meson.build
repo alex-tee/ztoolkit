@@ -56,22 +56,19 @@ deps = [
   # for drawing
   dependency('cairo', version: '>=1.0.0'),
 
-  # for rendering SVGs with cairo
-  dependency('librsvg-2.0'),
-
   # math functions might be implemented in libm
   cc.find_library('m', required: false),
   ]
 
 cdata = configuration_data ()
 if os_linux
- deps += dependency('x11')
- cdata.set('HAVE_X11', 1)
+  deps += dependency('x11')
+  cdata.set('HAVE_X11', 1)
 endif
 
 if get_option('enable_rsvg')
- deps += dependency('librsvg-2.0')
- cdata.set('HAVE_RSVG', 1)
+  deps += dependency('librsvg-2.0')
+  cdata.set('HAVE_RSVG', 1)
 endif
 
 # create config.h

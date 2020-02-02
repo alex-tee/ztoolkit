@@ -30,12 +30,14 @@ e = executable (
   )
 test ('color_test', e)
 
-e = executable (
-  'rsvg', 'rsvg.c',
-  include_directories: inc_dirs,
-  link_with: ztoolkit_lib,
-  dependencies: deps,
-  )
-test ('rsvg_test', e,
-  args: join_paths(
-    meson.current_source_dir(), 'test.svg'))
+if get_option('enable_rsvg')
+  e = executable (
+    'rsvg', 'rsvg.c',
+    include_directories: inc_dirs,
+    link_with: ztoolkit_lib,
+    dependencies: deps,
+    )
+  test ('rsvg_test', e,
+    args: join_paths(
+      meson.current_source_dir(), 'test.svg'))
+endif

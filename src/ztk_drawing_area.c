@@ -74,5 +74,9 @@ ztk_drawing_area_new (
     draw_cb,
     ztk_drawing_area_free);
 
+  /* set user data */
+  ZtkWidget * widget = (ZtkWidget *) self;
+  widget->user_data = data;
+
   return self;
 }
