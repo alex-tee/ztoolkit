@@ -16,8 +16,16 @@
 # along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
 
 e = executable (
-  'log_exe', 'log.c',
+  'log', 'log.c',
   include_directories: inc_dirs,
   link_with: ztoolkit_lib,
   )
 test ('log_test', e)
+
+e = executable (
+  'color', 'color.c',
+  include_directories: inc_dirs,
+  link_with: ztoolkit_lib,
+  dependencies: deps,
+  )
+test ('color_test', e)

@@ -17,8 +17,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 
-#include "ztoolkit/ztk_color.h"
+#include <ztoolkit/log.h>
+#include <ztoolkit/ztk_color.h>
 
 void
 ztk_color_set_for_cairo (
@@ -28,4 +31,31 @@ ztk_color_set_for_cairo (
   cairo_set_source_rgba (
     cr, color->red, color->green, color->blue,
     color->alpha);
+}
+
+/**
+ * Parses a ZtkColor from the given hex string.
+ */
+void
+ztk_color_parse_hex (
+  ZtkColor *   color,
+  const char * hex_str)
+{
+  char str[3];
+  long num;
+  str[0] = hex_str[1];
+  str[1] = hex_str[2];
+  str[2] = '\0';
+  num = strtol (str, NULL, 16);
+  color->red = (double) num / 255;
+  str[0] = hex_str[3];
+  str[1] = hex_str[4];
+  str[2] = '\0';
+  num = strtol (str, NULL, 16);
+  color->green = (double) num / 255;
+  str[0] = hex_str[5];
+  str[1] = hex_str[6];
+  str[2] = '\0';
+  num = strtol (str, NULL, 16);
+  color->blue = (double) num / 255;
 }

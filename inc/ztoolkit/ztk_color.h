@@ -38,4 +38,12 @@ ztk_color_set_for_cairo (
   ZtkColor * color,
   cairo_t *  cr);
 
+/**
+ * Parses a ZtkColor from the given hex string.
+ */
+void
+ztk_color_parse_hex (
+  ZtkColor *   color,
+  const char * hex_str);
+
 #endif

@@ -22,10 +22,10 @@
 int main (
   int argc, const char* argv[])
 {
-  ztk_debug ("debug test");
-  ztk_message ("message test");
-  ztk_warning ("warning test");
-  ztk_error ("error test");
+  ztk_debug ("%s", "debug test");
+  ztk_message ("%s", "message test");
+  ztk_warning ("%s", "warning test");
+  ztk_error ("%s", "error test");
 
   return 0;
 }
