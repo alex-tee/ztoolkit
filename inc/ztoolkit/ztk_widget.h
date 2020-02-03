@@ -72,6 +72,7 @@ typedef enum ZtkWidgetType
   ZTK_WIDGET_TYPE_KNOB_WITH_LABEL,
   ZTK_WIDGET_TYPE_DRAWING_AREA,
   ZTK_WIDGET_TYPE_COMBO_BOX,
+  ZTK_WIDGET_TYPE_CONTROL,
 } ZtkWidgetType;
 
 typedef struct ZtkWidget ZtkWidget;
