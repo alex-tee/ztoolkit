@@ -33,6 +33,13 @@ typedef float (*ZtkControlGetter) (
   ZtkControl * control,
   void *       object);
 
+typedef enum ZtkControlDragMode
+{
+  ZTK_CTRL_DRAG_HORIZONTAL,
+  ZTK_CTRL_DRAG_VERTICAL,
+  ZTK_CTRL_DRAG_BOTH,
+} ZtkControlDragMode;
+
 /**
  * Generic control with custom drawing.
  */
@@ -55,11 +62,17 @@ typedef struct ZtkControl
   float             min;    ///< min value (eg. 1)
   float             max;    ///< max value (eg. 180)
 
+  /** Drag mode. */
+  ZtkControlDragMode drag_mode;
+
   /** Used during drags. */
   double            last_x;
 
   /** Used during drags. */
   double            last_y;
+
+  /** Sensitivity value (default 0.007f). */
+  float             sensitivity;
 
 } ZtkControl;
 
@@ -77,6 +90,7 @@ ztk_control_new (
   ZtkControlGetter get_val,
   ZtkControlSetter set_val,
   ZtkWidgetDrawCallback draw_cb,
+  ZtkControlDragMode drag_mode,
   void * object,
   float  min,
   float  max,

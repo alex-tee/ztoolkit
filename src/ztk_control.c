@@ -77,15 +77,37 @@ update_cb (
   ZtkApp * app = w->app;
   if (w->state & ZTK_WIDGET_STATE_PRESSED)
     {
-      double delta =
+      double dx =
+        app->prev_press_x -
+        app->offset_press_x;
+      dx = - dx;
+      double dy =
         app->prev_press_y -
         app->offset_press_y;
+      double delta = 0.0;
+      switch (self->drag_mode)
+        {
+        case ZTK_CTRL_DRAG_HORIZONTAL:
+          delta = dx;
+          break;
+        case ZTK_CTRL_DRAG_VERTICAL:
+          delta = dy;
+          break;
+        case ZTK_CTRL_DRAG_BOTH:
+          if (fabs (dx) > fabs (dy))
+            delta = dx;
+          else
+            delta = dy;
+          break;
+        default:
+          break;
+        }
 
       SET_REAL_VAL (
         REAL_VAL_FROM_CONTROL (
           CLAMP (
             CONTROL_VAL_FROM_REAL (GET_REAL_VAL) +
-              0.007f * (float) delta,
+              self->sensitivity * (float) delta,
              0.0f, 1.0f)));
     }
 }
@@ -114,6 +136,7 @@ ztk_control_new (
   ZtkControlGetter get_val,
   ZtkControlSetter set_val,
   ZtkWidgetDrawCallback draw_cb,
+  ZtkControlDragMode drag_mode,
   void * object,
   float  min,
   float  max,
@@ -125,11 +148,13 @@ ztk_control_new (
     update_cb, draw_cb,
     control_free);
 
+  self->drag_mode = drag_mode;
   self->getter = get_val;
   self->setter = set_val;
   self->object = object;
   self->min = min;
   self->max = max;
+  self->sensitivity = 0.007f;
 
   return self;
 }
