@@ -75,7 +75,7 @@ ztk_label_new (
     x, y, 0, 0,
   };
   ztk_widget_init (
-    (ZtkWidget *) self, &rect,
+    (ZtkWidget *) self, ZTK_WIDGET_TYPE_LABEL, &rect,
     ztk_label_update_cb, ztk_label_draw_cb,
     ztk_label_free);
 

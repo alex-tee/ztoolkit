@@ -69,7 +69,8 @@ ztk_drawing_area_new (
   ZtkDrawingArea * self =
     calloc (1, sizeof (ZtkDrawingArea));
   ztk_widget_init (
-    (ZtkWidget *) self, rect,
+    (ZtkWidget *) self,
+    ZTK_WIDGET_TYPE_DRAWING_AREA, rect,
     update_cb ? update_cb : ztk_drawing_area_update,
     draw_cb,
     ztk_drawing_area_free);

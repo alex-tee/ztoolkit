@@ -21,9 +21,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "ztoolkit/ztk_app.h"
-#include "ztoolkit/ztk_cairo.h"
-#include "ztoolkit/ztk_widget.h"
+#include "ztoolkit/ztk.h"
 
 #include <pugl/pugl.h>
 #include <pugl/pugl_cairo.h>
@@ -101,7 +99,28 @@ post_event_to_widgets (
   const PuglEvent * event)
 {
   ZtkWidget * w = NULL;
-  for (int i = 0; i < self->num_widgets; i++)
+
+  /* if any combo box is active and not
+   * hit, remove it */
+  if (event->type == PUGL_BUTTON_PRESS)
+    {
+      const PuglEventButton * ev =
+        (const PuglEventButton *) event;
+      for (int i = self->num_widgets - 1;
+           i >= 0; i--)
+        {
+          w = self->widgets[i];
+          if ((w->type ==
+                 ZTK_WIDGET_TYPE_COMBO_BOX) &&
+              !ztk_widget_is_hit (
+                w, ev->x, ev->y))
+            {
+              ztk_app_remove_widget (self, w);
+            }
+        }
+    }
+
+  for (int i = self->num_widgets - 1; i >= 0; i--)
     {
       w = self->widgets[i];
       switch (event->type)
@@ -130,7 +149,8 @@ post_event_to_widgets (
                   ZTK_WIDGET_STATE_SELECTED;
                 if (w->button_event_cb)
                   {
-                    w->button_event_cb (w, ev);
+                    w->button_event_cb (
+                      w, ev, w->user_data);
                   }
               }
             else
@@ -150,7 +170,8 @@ post_event_to_widgets (
               ~ZTK_WIDGET_STATE_PRESSED;
             if (w->button_event_cb)
               {
-                w->button_event_cb (w, ev);
+                w->button_event_cb (
+                  w, ev, w->user_data);
               }
           }
           break;
@@ -165,7 +186,8 @@ post_event_to_widgets (
                   ZTK_WIDGET_STATE_HOVERED;
                 if (w->motion_event_cb)
                   {
-                    w->motion_event_cb (w, ev);
+                    w->motion_event_cb (
+                      w, ev, w->user_data);
                   }
               }
             else
@@ -324,6 +346,16 @@ ztk_app_new (
   return self;
 }
 
+static int
+cmp_z (
+  const void * a,
+  const void * b)
+{
+  return
+    (*(ZtkWidget **) a)->z -
+      (*(ZtkWidget **) b)->z;
+}
+
 /**
  * Adds a widget with the given Z axis.
  */
@@ -333,7 +365,27 @@ ztk_app_add_widget (
   ZtkWidget * widget,
   int         z)
 {
-  if (self->num_widgets == self->widgets_size)
+  /* skip if already in app */
+  if (ztk_app_contains_widget (self, widget))
+    {
+      ztk_warning (
+        "Attempted to add widget %p to ZtkApp, "
+        "but the widget is already in ZtkApp",
+        widget);
+      return;
+    }
+
+  if (self->widgets_size == 0)
+    {
+      self->widgets_size = 2;
+      self->widgets =
+        (ZtkWidget **)
+        realloc (
+          self->widgets,
+          (size_t) self->widgets_size *
+            sizeof (ZtkWidget *));
+    }
+  else if (self->num_widgets == self->widgets_size)
     {
       self->widgets_size = self->widgets_size * 2;
       self->widgets =
@@ -348,6 +400,9 @@ ztk_app_add_widget (
   widget->z = z;
 
   /* TODO sort by z */
+  qsort (
+    self->widgets, (size_t) self->num_widgets,
+    sizeof (ZtkWidget *), cmp_z);
 }
 
 /**
@@ -358,21 +413,46 @@ ztk_app_remove_widget (
   ZtkApp *    self,
   ZtkWidget * widget)
 {
+  int match = 0;
   for (int i = self->num_widgets - 1;
        i >= 0; i--)
     {
       ZtkWidget * w = self->widgets[i];
       if (w == widget)
         {
+          match = 1;
           for (int j = i; j < self->num_widgets - 1;
                j++)
             {
-              self->widgets[j] = self->widgets[j + 1];
+              self->widgets[j] =
+                self->widgets[j + 1];
             }
           break;
         }
     }
+  if (!match)
+    {
+      ztk_warning (
+        "Tried to remove widget %p from ZtkApp but "
+        "it wasn't found", widget);
+      return;
+    }
+
   self->num_widgets--;
+}
+
+int
+ztk_app_contains_widget (
+  ZtkApp * self,
+  ZtkWidget * widget)
+{
+  for (int i = 0; i < self->num_widgets; i++)
+    {
+      ZtkWidget * w = self->widgets[i];
+      if (w == widget)
+        return 1;
+    }
+  return 0;
 }
 
 /**

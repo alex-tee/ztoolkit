@@ -58,4 +58,5 @@ ztk_color_parse_hex (
   str[2] = '\0';
   num = strtol (str, NULL, 16);
   color->blue = (double) num / 255;
+  color->alpha = 1;
 }

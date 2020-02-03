@@ -79,7 +79,8 @@ ztk_knob_with_label_new (
     calloc (1, sizeof (ZtkKnobWithLabel));
 
   ztk_widget_init (
-    (ZtkWidget *) self, rect,
+    (ZtkWidget *) self,
+    ZTK_WIDGET_TYPE_KNOB_WITH_LABEL, rect,
     ztk_knob_with_label_update_cb,
     ztk_knob_with_label_draw_cb,
     ztk_knob_with_label_free);

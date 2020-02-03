@@ -30,6 +30,14 @@ e = executable (
   )
 test ('color_test', e)
 
+e = executable (
+  'ztk_app', 'ztk_app.c',
+  include_directories: inc_dirs,
+  link_with: ztoolkit_lib,
+  dependencies: deps,
+  )
+test ('ztk_app_test', e)
+
 if get_option('enable_rsvg')
   e = executable (
     'rsvg', 'rsvg.c',

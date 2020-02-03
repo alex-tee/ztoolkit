@@ -69,7 +69,9 @@ typedef enum ZtkWidgetType
   ZTK_WIDGET_TYPE_NONE,
   ZTK_WIDGET_TYPE_LABEL,
   ZTK_WIDGET_TYPE_KNOB,
+  ZTK_WIDGET_TYPE_KNOB_WITH_LABEL,
   ZTK_WIDGET_TYPE_DRAWING_AREA,
+  ZTK_WIDGET_TYPE_COMBO_BOX,
 } ZtkWidgetType;
 
 typedef struct ZtkWidget ZtkWidget;
@@ -96,6 +98,44 @@ typedef void (*ZtkWidgetDrawCallback) (
   ZtkWidget * widget,
   cairo_t *   cr,
   void *      data);
+
+/**
+ * Prototype for activate callbacks.
+ *
+ * This should be used on widgets that can be
+ * activated, like combobox elements or buttons.
+ *
+ * @param widget The ZtkWidget instance.
+ * @param data User data passed during
+ *   instantiation.
+ */
+typedef void (*ZtkWidgetActivateCallback) (
+  ZtkWidget * widget,
+  void *      data);
+
+/**
+ * Button event callback prototype.
+ *
+ * @return If the next hit widget on the stack
+ *   should receive the event (1) or if the chain
+ *   should stop here (0).
+ */
+typedef int (*ZtkWidgetButtonEventCallback) (
+  ZtkWidget *             widget,
+  const PuglEventButton * btn,
+  void *                  data);
+
+/**
+ * Motion event callback prototype.
+ *
+ * @return If the next hit widget on the stack
+ *   should receive the event (1) or if the chain
+ *   should stop here (0).
+ */
+typedef int (*ZtkWidgetMotionEventCallback) (
+  ZtkWidget *             widget,
+  const PuglEventMotion * event,
+  void *                  data);
 
 /**
  * Base widget.
@@ -129,15 +169,8 @@ typedef struct ZtkWidget
    * (optional). */
   ZtkWidgetGenericCallback dispose_cb;
 
-  /**
-   * Button event callback (optional).
-   *
-   * Returns if the
-   * next hit widget on the stack should receive
-   * the event (1) or if the chain should stop here
-   * (0).
-   */
-  int (*button_event_cb) (ZtkWidget *, const PuglEventButton *);
+  /** Button event callback (optional). */
+  ZtkWidgetButtonEventCallback button_event_cb;
 
   /** Button event callback (optional). */
   int (*key_event_cb) (ZtkWidget *, const PuglEventKey *);
@@ -146,7 +179,7 @@ typedef struct ZtkWidget
   int (*crossing_event_cb) (ZtkWidget *, const PuglEventCrossing *);
 
   /** Motion event callback (optional). */
-  int (*motion_event_cb) (ZtkWidget *, const PuglEventMotion *);
+  ZtkWidgetMotionEventCallback motion_event_cb;
 
   /** Scroll event callback (optional). */
   int (*scroll_event_cb) (ZtkWidget *, const PuglEventScroll *);
@@ -187,6 +220,7 @@ typedef struct ZtkWidget
 void
 ztk_widget_init (
   ZtkWidget *       self,
+  ZtkWidgetType     type,
   ZtkRect *        rect,
   ZtkWidgetGenericCallback update_cb,
   ZtkWidgetDrawCallback draw_cb,

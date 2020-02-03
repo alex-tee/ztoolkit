@@ -258,7 +258,7 @@ ztk_knob_new (
 {
   ZtkKnob * self = calloc (1, sizeof (ZtkKnob));
   ztk_widget_init (
-    (ZtkWidget *) self, rect,
+    (ZtkWidget *) self, ZTK_WIDGET_TYPE_KNOB, rect,
     ztk_knob_update_cb, ztk_knob_draw_cb,
     ztk_knob_free);
 

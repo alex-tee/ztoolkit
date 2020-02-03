@@ -90,6 +90,11 @@ ztk_app_remove_widget (
   ZtkApp *    self,
   ZtkWidget * widget);
 
+int
+ztk_app_contains_widget (
+  ZtkApp * self,
+  ZtkWidget * widget);
+
 /**
  * Draws each widget.
  */

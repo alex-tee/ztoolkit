@@ -24,13 +24,14 @@
 #include "log.h"
 #include "types.h"
 #include "rsvg.h"
+#include "ztk_widget.h"
 #include "ztk_app.h"
 #include "ztk_color.h"
+#include "ztk_combo_box.h"
 #include "ztk_drawing_area.h"
 #include "ztk_knob.h"
 #include "ztk_knob_with_label.h"
 #include "ztk_label.h"
-#include "ztk_widget.h"
 
 #ifndef MAX
 # define MAX(x,y) (x > y ? x : y)

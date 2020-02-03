@@ -27,12 +27,14 @@
 void
 ztk_widget_init (
   ZtkWidget *       self,
+  ZtkWidgetType     type,
   ZtkRect *        rect,
   ZtkWidgetGenericCallback update_cb,
   ZtkWidgetDrawCallback draw_cb,
   ZtkWidgetGenericCallback free_cb)
 {
   self->rect = *rect;
+  self->type = type;
   self->update_cb = update_cb;
   self->draw_cb = draw_cb;
   self->free_cb = free_cb;
