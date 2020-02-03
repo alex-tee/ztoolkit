@@ -285,8 +285,6 @@ motion_cb (
   const PuglEventMotion * event,
   void *                  data)
 {
-  ztk_message ("%s", "combo box motion");
-
   /* set hovered */
   ZtkComboBox * self = (ZtkComboBox *) widget;
 
@@ -379,7 +377,6 @@ button_event_cb (
            * combobox */
           ztk_app_remove_widget (
             widget->app, widget);
-          ztk_message ("%s", "removed");
 
           return 0;
         }

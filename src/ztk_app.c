@@ -100,9 +100,12 @@ post_event_to_widgets (
 {
   ZtkWidget * w = NULL;
 
-  /* if any combo box is active and not
-   * hit, remove it */
-  if (event->type == PUGL_BUTTON_PRESS)
+  /* if any combo box is active:
+   * - if hit, set the flag to ignore other presses
+   * - if not hit, remove it */
+  int combo_box_hit = 0;
+  if (event->type == PUGL_BUTTON_PRESS ||
+      event->type == PUGL_BUTTON_RELEASE)
     {
       const PuglEventButton * ev =
         (const PuglEventButton *) event;
@@ -110,12 +113,18 @@ post_event_to_widgets (
            i >= 0; i--)
         {
           w = self->widgets[i];
-          if ((w->type ==
-                 ZTK_WIDGET_TYPE_COMBO_BOX) &&
-              !ztk_widget_is_hit (
-                w, ev->x, ev->y))
+          if (w->type ==
+                 ZTK_WIDGET_TYPE_COMBO_BOX)
             {
-              ztk_app_remove_widget (self, w);
+              if (ztk_widget_is_hit (
+                    w, ev->x, ev->y))
+                {
+                  combo_box_hit = 1;
+                }
+              else
+                {
+                  ztk_app_remove_widget (self, w);
+                }
             }
         }
     }
@@ -147,7 +156,10 @@ post_event_to_widgets (
                   ZTK_WIDGET_STATE_PRESSED;
                 w->state |=
                   ZTK_WIDGET_STATE_SELECTED;
-                if (w->button_event_cb)
+                if (w->button_event_cb &&
+                    (w->type ==
+                       ZTK_WIDGET_TYPE_COMBO_BOX ||
+                     !combo_box_hit))
                   {
                     w->button_event_cb (
                       w, ev, w->user_data);
@@ -168,7 +180,10 @@ post_event_to_widgets (
             w->state &=
               (unsigned int)
               ~ZTK_WIDGET_STATE_PRESSED;
-            if (w->button_event_cb)
+            if (w->button_event_cb &&
+                (w->type ==
+                   ZTK_WIDGET_TYPE_COMBO_BOX ||
+                 !combo_box_hit))
               {
                 w->button_event_cb (
                   w, ev, w->user_data);
