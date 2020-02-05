@@ -172,7 +172,9 @@ post_event_to_widgets (
             const PuglEventButton * ev =
               (const PuglEventButton *) event;
             if (ztk_widget_is_hit (
-                  w, ev->x, ev->y))
+                  w, ev->x, ev->y) &&
+                is_first_widget_hit (
+                  self, w, ev->x, ev->y))
               {
                 w->state |=
                   ZTK_WIDGET_STATE_PRESSED;
