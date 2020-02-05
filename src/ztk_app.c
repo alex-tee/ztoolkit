@@ -178,6 +178,7 @@ post_event_to_widgets (
                 is_first_widget_hit (
                   self, w, ev->x, ev->y))
               {
+                w->last_btn_press = ev->time;
                 w->state |=
                   ZTK_WIDGET_STATE_PRESSED;
                 w->state |=
@@ -206,6 +207,7 @@ post_event_to_widgets (
             w->state &=
               (unsigned int)
               ~ZTK_WIDGET_STATE_PRESSED;
+            w->last_btn_release = ev->time;
             if (w->visible &&
                 w->button_event_cb &&
                 (w->type ==

@@ -205,6 +205,21 @@ typedef struct ZtkWidget
   /** Last rectangle drawn in. */
   ZtkRect           last_draw_rect;
 
+  /**
+   * Last time a press was finished.
+   *
+   * This is used to detect double clicks.
+   */
+  double            last_btn_release;
+
+  /**
+   * Last time a button was held down.
+   *
+   * If this minus \ref ZtkWidget.last_btn_release
+   * is short enough, this is a double click.
+   */
+  double            last_btn_press;
+
   /** Cairo caches. */
   cairo_t *         cached_cr;
   cairo_surface_t * cached_surface;
