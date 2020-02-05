@@ -36,6 +36,9 @@
 
 #define BOLD "\x1b[1m"
 
+static ZtkLogLevel ztk_log_level =
+  ZTK_LOG_LEVEL_WARNING;
+
 /**
  * Fills in the timestamp as a string into \ref buf.
  */
@@ -56,6 +59,16 @@ get_timestamp (
 }
 
 /**
+ * Sets the log level.
+ */
+void
+ztk_log_set_level (
+  ZtkLogLevel level)
+{
+  ztk_log_level = level;
+}
+
+/**
  * Logs a message.
  *
  * @param func Function name.
@@ -69,6 +82,9 @@ ztk_log (
   const char * format,
   ...)
 {
+  if (level < ztk_log_level)
+    return;
+
   va_list arg;
 
   char buf[6000] = "** ";

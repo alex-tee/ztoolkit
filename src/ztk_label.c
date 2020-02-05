@@ -32,9 +32,9 @@ ztk_label_draw_cb (
 
   // Draw label
   cairo_text_extents_t extents;
-  cairo_set_font_size(cr, self->font_size);
-  cairo_text_extents(cr, self->label, &extents);
-  cairo_move_to(
+  cairo_set_font_size (cr, self->font_size);
+  cairo_text_extents (cr, self->label, &extents);
+  cairo_move_to (
     cr, widget->rect.x, widget->rect.y);
   ztk_color_set_for_cairo (
     &self->color, cr);

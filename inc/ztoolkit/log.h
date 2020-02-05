@@ -32,19 +32,15 @@ typedef enum ZtkLogLevel
   ZTK_LOG_LEVEL_MESSAGE,
   ZTK_LOG_LEVEL_WARNING,
   ZTK_LOG_LEVEL_ERROR,
+  ZTK_LOG_LEVEL_OFF,
 } ZtkLogLevel;
 
-static int ztk_log_enabled = 1;
-
 /**
- * Enables or disables logging.
+ * Sets the log level.
  */
-static inline void
-ztk_log_set_enabled (
-  int enabled)
-{
-  ztk_log_enabled = enabled;
-}
+void
+ztk_log_set_level (
+  ZtkLogLevel level);
 
 /**
  * Logs a message.
