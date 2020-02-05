@@ -38,6 +38,7 @@ ztk_widget_init (
   self->update_cb = update_cb;
   self->draw_cb = draw_cb;
   self->free_cb = free_cb;
+  self->visible = 1;
 }
 
 /**
