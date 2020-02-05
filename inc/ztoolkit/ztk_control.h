@@ -71,6 +71,17 @@ typedef struct ZtkControl
   /** Used during drags. */
   double            last_y;
 
+  /**
+   * Relative mode or not.
+   *
+   * In relative mode, the movement is relative
+   * to the amount that the cursor moved.
+   *
+   * In absolute mode, the value is set to where
+   * the cursor is.
+   */
+  int               relative_mode;
+
   /** Sensitivity value (default 0.007f). */
   float             sensitivity;
 
@@ -95,5 +106,10 @@ ztk_control_new (
   float  min,
   float  max,
   float  zero);
+
+void
+ztk_control_set_relative_mode (
+  ZtkControl * self,
+  int          on);
 
 #endif

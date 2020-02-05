@@ -77,38 +77,71 @@ update_cb (
   ZtkApp * app = w->app;
   if (w->state & ZTK_WIDGET_STATE_PRESSED)
     {
-      double dx =
-        app->prev_press_x -
-        app->offset_press_x;
-      dx = - dx;
-      double dy =
-        app->prev_press_y -
-        app->offset_press_y;
-      double delta = 0.0;
-      switch (self->drag_mode)
+      if (self->relative_mode)
         {
-        case ZTK_CTRL_DRAG_HORIZONTAL:
-          delta = dx;
-          break;
-        case ZTK_CTRL_DRAG_VERTICAL:
-          delta = dy;
-          break;
-        case ZTK_CTRL_DRAG_BOTH:
-          if (fabs (dx) > fabs (dy))
-            delta = dx;
-          else
-            delta = dy;
-          break;
-        default:
-          break;
-        }
+          double dx =
+            app->prev_press_x -
+            app->offset_press_x;
+          dx = - dx;
+          double dy =
+            app->prev_press_y -
+            app->offset_press_y;
+          double delta = 0.0;
+          switch (self->drag_mode)
+            {
+            case ZTK_CTRL_DRAG_HORIZONTAL:
+              delta = dx;
+              break;
+            case ZTK_CTRL_DRAG_VERTICAL:
+              delta = dy;
+              break;
+            case ZTK_CTRL_DRAG_BOTH:
+              if (fabs (dx) > fabs (dy))
+                delta = dx;
+              else
+                delta = dy;
+              break;
+            default:
+              break;
+            }
 
-      SET_REAL_VAL (
-        REAL_VAL_FROM_CONTROL (
-          CLAMP (
-            CONTROL_VAL_FROM_REAL (GET_REAL_VAL) +
-              self->sensitivity * (float) delta,
-             0.0f, 1.0f)));
+          SET_REAL_VAL (
+            REAL_VAL_FROM_CONTROL (
+              CLAMP (
+                CONTROL_VAL_FROM_REAL (
+                  GET_REAL_VAL) +
+                    self->sensitivity *
+                      (float) delta,
+                 0.0f, 1.0f)));
+        }
+      else /* absolute mode */
+        {
+          double dx = app->offset_press_x;
+          double dy = app->offset_press_y;
+          double ctrl_val = 0.0;
+          switch (self->drag_mode)
+            {
+            case ZTK_CTRL_DRAG_HORIZONTAL:
+              ctrl_val =
+                (dx - w->rect.x) / w->rect.width;
+              break;
+            case ZTK_CTRL_DRAG_VERTICAL:
+              ctrl_val =
+                1.f -
+                 (dy - w->rect.y) / w->rect.height;
+              break;
+            default:
+              ztk_warning (
+                "%s",
+                "ZTK_CTRL_DRAG_HORIZONTAL is "
+                "invalid with absolute mode");
+              return;
+            }
+          SET_REAL_VAL (
+            REAL_VAL_FROM_CONTROL (
+              CLAMP (
+                (float) ctrl_val, 0.0f, 1.0f)));
+        }
     }
 }
 
@@ -120,6 +153,14 @@ control_free (
   ZtkControl * self = (ZtkControl *) widget;
 
   free (self);
+}
+
+void
+ztk_control_set_relative_mode (
+  ZtkControl * self,
+  int          on)
+{
+  self->relative_mode = on;
 }
 
 /**
@@ -152,6 +193,7 @@ ztk_control_new (
   self->getter = get_val;
   self->setter = set_val;
   self->object = object;
+  self->relative_mode = 1;
   self->min = min;
   self->max = max;
   self->sensitivity = 0.007f;
