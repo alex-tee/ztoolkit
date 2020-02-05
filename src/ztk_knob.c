@@ -70,7 +70,7 @@
    ((*self->setter)(self->object, (float) real))
 
 static void
-ztk_knob_draw_cb (
+draw_cb (
   ZtkWidget * widget,
   cairo_t *   cr,
   void *      data)
@@ -223,7 +223,7 @@ ztk_knob_draw_cb (
 }
 
 static void
-ztk_knob_update_cb (
+update_cb (
   ZtkWidget * w,
   void *      data)
 {
@@ -245,7 +245,7 @@ ztk_knob_update_cb (
 }
 
 static void
-ztk_knob_free (
+knob_free (
   ZtkWidget * widget,
   void *      data)
 {
@@ -276,8 +276,7 @@ ztk_knob_new (
   ZtkKnob * self = calloc (1, sizeof (ZtkKnob));
   ztk_widget_init (
     (ZtkWidget *) self, ZTK_WIDGET_TYPE_KNOB, rect,
-    ztk_knob_update_cb, ztk_knob_draw_cb,
-    ztk_knob_free);
+    update_cb, draw_cb, knob_free);
 
   self->getter = get_val;
   self->setter = set_val;

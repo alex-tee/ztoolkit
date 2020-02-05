@@ -26,6 +26,7 @@
 #include "rsvg.h"
 #include "ztk_widget.h"
 #include "ztk_app.h"
+#include "ztk_button.h"
 #include "ztk_color.h"
 #include "ztk_combo_box.h"
 #include "ztk_control.h"

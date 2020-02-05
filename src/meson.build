@@ -19,6 +19,7 @@ ztoolkit_srcs = files([
   'log.c',
   'rsvg.c',
   'ztk_app.c',
+  'ztk_button.c',
   'ztk_color.c',
   'ztk_combo_box.c',
   'ztk_control.c',
