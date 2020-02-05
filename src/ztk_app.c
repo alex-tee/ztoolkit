@@ -44,10 +44,7 @@ on_expose (
   for (int i = 0; i < self->num_widgets; i++)
     {
       w = self->widgets[i];
-      if (w->visible)
-        {
-          w->update_cb (w, w->user_data);
-        }
+      w->update_cb (w, w->user_data);
     }
 
   cairo_t* cr = (cairo_t*)puglGetContext(view);
