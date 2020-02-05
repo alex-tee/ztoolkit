@@ -213,6 +213,23 @@ post_event_to_widgets (
               }
           }
           break;
+        case PUGL_LEAVE_NOTIFY:
+          {
+            const PuglEventMotion * ev =
+              (const PuglEventMotion *) event;
+            if (w->state & ZTK_WIDGET_STATE_HOVERED)
+              {
+                w->state &=
+                  (unsigned int)
+                  ~ZTK_WIDGET_STATE_HOVERED;
+                if (w->motion_event_cb)
+                  {
+                    w->motion_event_cb (
+                      w, ev, w->user_data);
+                  }
+              }
+          }
+          break;
         case PUGL_SCROLL:
           {
             const PuglEventScroll * ev =
