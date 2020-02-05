@@ -93,6 +93,28 @@ on_expose (
   ztk_app_draw (self, cr);
 }
 
+static int
+is_first_widget_hit (
+  ZtkApp *    self,
+  ZtkWidget * widget,
+  double      x,
+  double      y)
+{
+  for (int i = self->num_widgets - 1; i >= 0; i--)
+    {
+      ZtkWidget * w = self->widgets[i];
+      if (ztk_widget_is_hit (w, x, y))
+        {
+          if (widget == w)
+            return 1;
+          else
+            return 0;
+        }
+    }
+
+  return 0;
+}
+
 static void
 post_event_to_widgets (
   ZtkApp *          self,
@@ -195,7 +217,9 @@ post_event_to_widgets (
             const PuglEventMotion * ev =
               (const PuglEventMotion *) event;
             if (ztk_widget_is_hit (
-                  w, ev->x, ev->y))
+                  w, ev->x, ev->y) &&
+                is_first_widget_hit (
+                  self, w, ev->x, ev->y))
               {
                 w->state |=
                   ZTK_WIDGET_STATE_HOVERED;
