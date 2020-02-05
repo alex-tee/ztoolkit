@@ -51,6 +51,7 @@ ztk_widget_is_hit (
   double      y)
 {
   return
+    self->visible &&
     x >= self->rect.x &&
     x <= self->rect.x + self->rect.width &&
     y >= self->rect.y &&
@@ -66,4 +67,15 @@ ztk_widget_set_user_data (
   void *      data)
 {
   self->user_data = data;
+}
+
+/**
+ * Shows or hides the widget.
+ */
+void
+ztk_widget_set_visible (
+  ZtkWidget * self,
+  int         visible)
+{
+  self->visible = visible;
 }

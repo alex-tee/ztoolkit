@@ -44,7 +44,10 @@ on_expose (
   for (int i = 0; i < self->num_widgets; i++)
     {
       w = self->widgets[i];
-      w->update_cb (w, w->user_data);
+      if (w->visible)
+        {
+          w->update_cb (w, w->user_data);
+        }
     }
 
   cairo_t* cr = (cairo_t*)puglGetContext(view);
@@ -103,7 +106,7 @@ is_first_widget_hit (
   for (int i = self->num_widgets - 1; i >= 0; i--)
     {
       ZtkWidget * w = self->widgets[i];
-      if (ztk_widget_is_hit (w, x, y))
+      if (w->visible && ztk_widget_is_hit (w, x, y))
         {
           if (widget == w)
             return 1;
@@ -138,7 +141,8 @@ post_event_to_widgets (
           if (w->type ==
                  ZTK_WIDGET_TYPE_COMBO_BOX)
             {
-              if (ztk_widget_is_hit (
+              if (w->visible &&
+                  ztk_widget_is_hit (
                     w, ev->x, ev->y))
                 {
                   combo_box_hit = 1;
@@ -161,7 +165,7 @@ post_event_to_widgets (
           {
             const PuglEventKey * ev =
               (const PuglEventKey *) event;
-            if (w->key_event_cb)
+            if (w->visible && w->key_event_cb)
               {
                 w->key_event_cb (w, ev);
               }
@@ -171,7 +175,8 @@ post_event_to_widgets (
           {
             const PuglEventButton * ev =
               (const PuglEventButton *) event;
-            if (ztk_widget_is_hit (
+            if (w->visible &&
+                ztk_widget_is_hit (
                   w, ev->x, ev->y) &&
                 is_first_widget_hit (
                   self, w, ev->x, ev->y))
@@ -204,7 +209,8 @@ post_event_to_widgets (
             w->state &=
               (unsigned int)
               ~ZTK_WIDGET_STATE_PRESSED;
-            if (w->button_event_cb &&
+            if (w->visible &&
+                w->button_event_cb &&
                 (w->type ==
                    ZTK_WIDGET_TYPE_COMBO_BOX ||
                  !combo_box_hit))
@@ -218,7 +224,8 @@ post_event_to_widgets (
           {
             const PuglEventMotion * ev =
               (const PuglEventMotion *) event;
-            if (ztk_widget_is_hit (
+            if (w->visible &&
+                ztk_widget_is_hit (
                   w, ev->x, ev->y) &&
                 is_first_widget_hit (
                   self, w, ev->x, ev->y))
@@ -248,7 +255,8 @@ post_event_to_widgets (
                 w->state &=
                   (unsigned int)
                   ~ZTK_WIDGET_STATE_HOVERED;
-                if (w->motion_event_cb)
+                if (w->visible &&
+                    w->motion_event_cb)
                   {
                     w->motion_event_cb (
                       w, ev, w->user_data);
@@ -260,7 +268,8 @@ post_event_to_widgets (
           {
             const PuglEventScroll * ev =
               (const PuglEventScroll *) event;
-            if (ztk_widget_is_hit (
+            if (w->visible &&
+                ztk_widget_is_hit (
                   w, ev->x, ev->y) &&
                 w->scroll_event_cb)
               {
@@ -524,6 +533,9 @@ ztk_app_draw (
   for (int i = 0; i < self->num_widgets; i++)
     {
       ZtkWidget * widget = self->widgets[i];
+      if (!widget->visible)
+        continue;
+
       widget->draw_cb (
         widget, cr, widget->user_data);
     }

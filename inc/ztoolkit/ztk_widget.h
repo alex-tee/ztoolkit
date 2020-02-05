@@ -247,6 +247,14 @@ ztk_widget_set_user_data (
   void *      data);
 
 /**
+ * Shows or hides the widget.
+ */
+void
+ztk_widget_set_visible (
+  ZtkWidget * self,
+  int         visible);
+
+/**
  * @}
  */
 

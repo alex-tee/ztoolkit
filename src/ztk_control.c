@@ -127,7 +127,7 @@ update_cb (
               break;
             case ZTK_CTRL_DRAG_VERTICAL:
               ctrl_val =
-                1.f -
+                1.0 -
                  (dy - w->rect.y) / w->rect.height;
               break;
             default:
