@@ -76,7 +76,10 @@ button_draw_cb (
       /* TODO draw label */
       break;
     case ZTK_BTN_SVG:
-      if (state & ZTK_WIDGET_STATE_PRESSED)
+      if ((state & ZTK_WIDGET_STATE_PRESSED) ||
+          (self->is_toggle &&
+             self->toggled_getter (
+               self, widget->user_data)))
         {
           DRAW_SVG (clicked_svg);
         }
