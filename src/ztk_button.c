@@ -33,7 +33,10 @@ button_draw_cb (
   ZtkWidgetState state = widget->state;
   if (self->has_bg_colors)
     {
-      if (state & ZTK_WIDGET_STATE_PRESSED)
+      if ((state & ZTK_WIDGET_STATE_PRESSED) ||
+          (self->is_toggle &&
+             self->toggled_getter (
+               self, widget->user_data)))
         {
           ztk_color_set_for_cairo (
             &self->clicked_color, cr);
