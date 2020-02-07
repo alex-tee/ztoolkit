@@ -87,6 +87,7 @@ inc_dirs = [
 
 # cflags
 common_cflags = cc.get_supported_arguments([
+  '-fvisibility=hidden',
   '-Wformat=2',
   '-Wno-missing-field-initializers',
   '-Wno-unused-parameter',
