@@ -56,20 +56,20 @@ ztk_log (
   const char * format,
   ...);
 
-#define ztk_debug(format,...) \
+#define ztk_debug(...) \
   ztk_log (__func__, ZTK_LOG_LEVEL_DEBUG, \
-    format, __VA_ARGS__)
+    __VA_ARGS__)
 
-#define ztk_message(format,...) \
+#define ztk_message(...) \
   ztk_log (__func__, ZTK_LOG_LEVEL_MESSAGE, \
-    format, __VA_ARGS__)
+    __VA_ARGS__)
 
-#define ztk_warning(format,...) \
+#define ztk_warning(...) \
   ztk_log (__func__, ZTK_LOG_LEVEL_WARNING, \
-    format, __VA_ARGS__)
+    __VA_ARGS__)
 
-#define ztk_error(format,...) \
-  ztk_log (__func__, ZTK_LOG_LEVEL_ERROR, format, \
+#define ztk_error(...) \
+  ztk_log (__func__, ZTK_LOG_LEVEL_ERROR, \
     __VA_ARGS__)
 
 #endif
