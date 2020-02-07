@@ -47,6 +47,10 @@ on_expose (
       w->update_cb (w, w->user_data);
     }
 
+  /* reset offsets */
+  self->prev_press_x = self->offset_press_x;
+  self->prev_press_y = self->offset_press_y;
+
   cairo_t* cr = (cairo_t*)puglGetContext(view);
 
   const PuglRect frame  = puglGetFrame(view);
