@@ -24,6 +24,11 @@ if os_linux or os_freebsd
     join_paths ('pugl', 'detail', 'x11.c'),
     join_paths ('pugl', 'detail', 'x11_cairo.c'),
     ]
+elif os_windows
+  pugl_srcs += [
+    join_paths ('pugl', 'detail', 'win.c'),
+    join_paths ('pugl', 'detail', 'win_cairo.c'),
+    ]
 endif
 
 pugl_deps = [
