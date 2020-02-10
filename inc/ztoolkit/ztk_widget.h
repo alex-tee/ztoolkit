@@ -207,18 +207,29 @@ typedef struct ZtkWidget
 
   /**
    * Last time a press was finished.
-   *
-   * This is used to detect double clicks.
    */
   double            last_btn_release;
 
   /**
-   * Last time a button was held down.
+   * Last time a press was finished, before
+   * the latest one.
    *
-   * If this minus \ref ZtkWidget.last_btn_release
-   * is short enough, this is a double click.
+   * This is used to detect double clicks.
+   */
+  double            before_last_btn_release;
+
+  /**
+   * Last time a button was held down.
    */
   double            last_btn_press;
+
+  /**
+   * Last time a button was held down,
+   * before the latest one.
+   *
+   * This is used to detect double clicks.
+   */
+  double            before_last_btn_press;
 
   /** Cairo caches. */
   cairo_t *         cached_cr;
