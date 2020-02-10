@@ -67,8 +67,12 @@ if os_linux
 endif
 
 if get_option('enable_rsvg')
-  deps += dependency('librsvg-2.0')
+  rsvg_dep = dependency('librsvg-2.0', version: '>=2.14')
+  deps += rsvg_dep
   cdata.set('HAVE_RSVG', 1)
+  if rsvg_dep.version().version_compare('>=2.46')
+    cdata.set('HAVE_RSVG_2_46', 1)
+  endif
 endif
 
 # create config.h
@@ -95,6 +99,7 @@ common_cflags = cc.get_supported_arguments([
   '-Wignored-qualifiers',
   '-Wno-cast-function-type',
   ])
+strict_cflags = []
 if get_option ('strict_flags')
   strict_cflags = cc.get_supported_arguments([
     #'-Werror=cast-qual',

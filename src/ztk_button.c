@@ -75,6 +75,7 @@ button_draw_cb (
     case ZTK_BTN_LBL:
       /* TODO draw label */
       break;
+#ifdef HAVE_RSVG
     case ZTK_BTN_SVG:
       if ((state & ZTK_WIDGET_STATE_PRESSED) ||
           (self->is_toggle &&
@@ -92,8 +93,11 @@ button_draw_cb (
           DRAW_SVG (normal_svg);
         }
       break;
+#endif
     case ZTK_BTN_CUSTOM:
       self->custom_draw_cb (widget, cr, data);
+      break;
+    default:
       break;
     }
 
@@ -193,6 +197,7 @@ ztk_button_make_labeled (
   strcpy (self->lbl, label);
 }
 
+#ifdef HAVE_RSVG
 /**
  * Makes a button with SVGs.
  */
@@ -213,6 +218,7 @@ ztk_button_make_svged (
   self->hover_svg = svg_hover;
   self->clicked_svg = svg_clicked;
 }
+#endif
 
 /**
  * Makes a customly drawn button.

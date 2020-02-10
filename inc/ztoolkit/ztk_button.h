@@ -20,6 +20,7 @@
 #ifndef __Z_TOOLKIT_ZTK_BUTTON_H__
 #define __Z_TOOLKIT_ZTK_BUTTON_H__
 
+#include "ztoolkit/rsvg.h"
 #include "ztoolkit/ztk_color.h"
 #include "ztoolkit/ztk_widget.h"
 
@@ -77,16 +78,12 @@ typedef struct ZtkButton
   /** Button type. */
   ZtkButtonType     type;
 
+#ifdef HAVE_RSVG
   /** Normal state SVG. */
   ZtkRsvgHandle *   normal_svg;
 
   /** Hovered SVG. */
   ZtkRsvgHandle *   hover_svg;
-
-  /** Padding to add when using SVGs to control
-   * their size. */
-  int               hpadding;
-  int               vpadding;
 
   /**
    * Clicked SVG.
@@ -94,6 +91,12 @@ typedef struct ZtkButton
    * This will also be used for when toggled.
    */
   ZtkRsvgHandle *   clicked_svg;
+#endif
+
+  /** Padding to add when using SVGs to control
+   * their size. */
+  int               hpadding;
+  int               vpadding;
 
   /** If this is 1, background colors will be drawn,
    * regardless if there is a \ref
@@ -142,6 +145,7 @@ ztk_button_make_labeled (
   ZtkButton *           self,
   const char *          label);
 
+#ifdef HAVE_RSVG
 /**
  * Makes a button with SVGs.
  */
@@ -153,6 +157,7 @@ ztk_button_make_svged (
   ZtkRsvgHandle * svg_normal,
   ZtkRsvgHandle * svg_hover,
   ZtkRsvgHandle * svg_clicked);
+#endif
 
 /**
  * Makes a customly drawn button.

@@ -93,6 +93,7 @@ ztk_rsvg_draw (
   cairo_t *       cr,
   ZtkRect *       rect)
 {
+#ifdef HAVE_RSVG_2_46
   RsvgRectangle viewport = {
     rect->x, rect->y, rect->width, rect->height };
   GError * err = NULL;
@@ -102,6 +103,28 @@ ztk_rsvg_draw (
     {
       return -1;
     }
+#else
+  int rwidth =
+    ztk_rsvg_get_width (handle);
+  int rheight =
+    ztk_rsvg_get_height (handle);
+  double xscale =
+    (double) rect->width / (double) rwidth ;
+  double yscale =
+    (double) rect->height / (double) rheight;
+  double scale = MIN (xscale, yscale);
+  double leftover_x =
+    rect->width - scale * rwidth;
+  double leftover_y =
+    rect->height - scale * rheight;
+  cairo_save (cr);
+  cairo_translate (cr, rect->x + leftover_x / 2, rect->y + leftover_y / 2);
+  cairo_scale (
+    cr, scale, scale);
+  rsvg_handle_render_cairo (
+    (RsvgHandle *) handle, cr);
+  cairo_restore (cr);
+#endif
 
   return 0;
 }
