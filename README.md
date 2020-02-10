@@ -1,18 +1,19 @@
 ZToolkit
 ========
 
-ZToolkit (Ztk) is a GUI toolkit for LV2 plugins
+ZToolkit (Ztk) is a cross-platform GUI toolkit
 heavily inspired by GTK.
 
 It handles events and low level drawing on
 behalf of the user and provides a high-level API
 for managing the UI and custom widgets.
 
-ZToolkit is written in C and was created to be
-used for various plugins bundled with the Zrythm
-digital audio workstation.
-
-This is a work in progress.
+ZToolkit is written in C based on
+[pugl](https://drobilla.net/software/pugl) and was
+created to be used for various plugins bundled
+with the
+[Zrythm](https://www.zrythm.org) digital audio
+workstation.
 
 Dependencies
 ------------
@@ -36,6 +37,10 @@ header for convenience.
     #include <ztoolkit/ztk.h>
 
 Docs are coming soon.
+
+Users
+-----
+[ZLFO](https://git.zrythm.org/cgit/ZLFO/) - a fully featured LFO for CV-based automation
 
 License
 -------
