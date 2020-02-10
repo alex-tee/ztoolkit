@@ -186,6 +186,11 @@ post_event_to_widgets (
                 w->last_btn_press = ev->time;
                 w->state |=
                   ZTK_WIDGET_STATE_PRESSED;
+                if (ev->button == 3)
+                  {
+                    w->state |=
+                      ZTK_WIDGET_STATE_RIGHT_PRESSED;
+                  }
                 w->state |=
                   ZTK_WIDGET_STATE_SELECTED;
                 if (w->button_event_cb &&
@@ -212,7 +217,11 @@ post_event_to_widgets (
             w->state &=
               (unsigned int)
               ~ZTK_WIDGET_STATE_PRESSED;
-            w->before_last_btn_release = w->last_btn_release;
+            w->state &=
+              (unsigned int)
+              ~ZTK_WIDGET_STATE_RIGHT_PRESSED;
+            w->before_last_btn_release =
+              w->last_btn_release;
             w->last_btn_release = ev->time;
             if (w->visible &&
                 w->button_event_cb &&

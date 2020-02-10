@@ -57,11 +57,18 @@ typedef enum ZtkEventChain
 typedef enum ZtkWidgetState
 {
   /** Normal state. */
-  ZTK_WIDGET_STATE_NORMAL = 1,
+  ZTK_WIDGET_STATE_NORMAL = 1 << 0,
 
   ZTK_WIDGET_STATE_HOVERED = 1 << 1,
   ZTK_WIDGET_STATE_SELECTED = 1 << 2,
   ZTK_WIDGET_STATE_PRESSED = 1  << 3,
+
+  /** Right click.
+   *
+   * This will be set in addition to
+   * ZTK_WIDGET_STATE_PRESSED.
+   */
+  ZTK_WIDGET_STATE_RIGHT_PRESSED = 1 << 4,
 } ZtkWidgetState;
 
 typedef enum ZtkWidgetType
