@@ -531,7 +531,7 @@ ztk_app_draw (
         continue;
 
       widget->draw_cb (
-        widget, cr, widget->user_data);
+        widget, cr, rect, widget->user_data);
     }
 }
 

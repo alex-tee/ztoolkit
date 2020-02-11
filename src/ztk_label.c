@@ -26,6 +26,7 @@ static void
 ztk_label_draw_cb (
   ZtkWidget * widget,
   cairo_t *   cr,
+  ZtkRect *   draw_rect,
   void *      data)
 {
   ZtkLabel * self = (ZtkLabel *) widget;

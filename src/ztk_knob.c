@@ -73,6 +73,7 @@ static void
 draw_cb (
   ZtkWidget * widget,
   cairo_t *   cr,
+  ZtkRect *   draw_rect,
   void *      data)
 {
   ZtkKnob * self = (ZtkKnob *) widget;

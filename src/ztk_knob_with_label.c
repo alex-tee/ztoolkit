@@ -28,14 +28,17 @@ static void
 ztk_knob_with_label_draw_cb (
   ZtkWidget * widget,
   cairo_t *   cr,
+  ZtkRect *   draw_rect,
   void *      data)
 {
   ZtkKnobWithLabel * self =
     (ZtkKnobWithLabel *) widget;
   ZtkWidget * knob_w = (ZtkWidget *) self->knob;
-  knob_w->draw_cb (knob_w, cr, knob_w->user_data);
+  knob_w->draw_cb (
+    knob_w, cr, draw_rect, knob_w->user_data);
   ZtkWidget * label_w = (ZtkWidget *) self->label;
-  label_w->draw_cb (label_w, cr, knob_w->user_data);
+  label_w->draw_cb (
+    label_w, cr, draw_rect, knob_w->user_data);
 }
 
 static void

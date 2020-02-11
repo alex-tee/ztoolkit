@@ -26,6 +26,7 @@ static void
 button_draw_cb (
   ZtkWidget * widget,
   cairo_t *   cr,
+  ZtkRect *   draw_rect,
   void *      data)
 {
   ZtkButton * self = (ZtkButton *) widget;
@@ -58,7 +59,8 @@ button_draw_cb (
     }
   else if (self->bg_draw_cb)
     {
-      self->bg_draw_cb (widget, cr, data);
+      self->bg_draw_cb (
+        widget, cr, draw_rect, data);
     }
 
 #define DRAW_SVG(svg) \
@@ -95,7 +97,8 @@ button_draw_cb (
       break;
 #endif
     case ZTK_BTN_CUSTOM:
-      self->custom_draw_cb (widget, cr, data);
+      self->custom_draw_cb (
+        widget, cr, draw_rect, data);
       break;
     default:
       break;

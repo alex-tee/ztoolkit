@@ -100,12 +100,15 @@ typedef void (*ZtkWidgetGenericCallback) (
  *
  * @param widget The ZtkWidget instance.
  * @param cr The cairo context to draw to.
+ * @param rect The rectangle this widget must
+ *   draw in.
  * @param data User data passed during
  *   instantiation.
  */
 typedef void (*ZtkWidgetDrawCallback) (
   ZtkWidget * widget,
   cairo_t *   cr,
+  ZtkRect *   rect,
   void *      data);
 
 /**

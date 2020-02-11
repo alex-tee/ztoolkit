@@ -144,6 +144,7 @@ static void
 draw_cb (
   ZtkWidget * w,
   cairo_t *   cr,
+  ZtkRect *   draw_rect,
   void *      data)
 {
   ZtkComboBox * self = (ZtkComboBox *) w;
