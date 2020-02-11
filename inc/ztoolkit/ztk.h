@@ -21,9 +21,11 @@
 #define __Z_TOOLKIT_ZTK_H__
 
 #include "ztoolkit_config.h"
+#include "math.h"
 #include "log.h"
-#include "types.h"
+#include "rect.h"
 #include "rsvg.h"
+#include "types.h"
 #include "ztk_widget.h"
 #include "ztk_app.h"
 #include "ztk_button.h"

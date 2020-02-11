@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Alexandros Theodotou <alex at zrythm dot org>
+ * Copyright (C) 2020 Alexandros Theodotou <alex at zrythm dot org>
  *
  * This file is part of ZToolkit
  *
@@ -17,7 +17,13 @@
  * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __ZTOOLKIT_TYPES_H__
-#define __ZTOOLKIT_TYPES_H__
+#ifndef __ZTOOLKIT_MATH_H__
+#define __ZTOOLKIT_MATH_H__
+
+#include <float.h>
+#include <math.h>
+
+#define math_doubles_equal(a,b) \
+  (a > b ? a - b < DBL_EPSILON : b - a < DBL_EPSILON)
 
 #endif

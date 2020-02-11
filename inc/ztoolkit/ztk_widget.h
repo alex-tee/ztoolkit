@@ -26,7 +26,7 @@
 #ifndef __Z_TOOLKIT_ZTK_WIDGET_H__
 #define __Z_TOOLKIT_ZTK_WIDGET_H__
 
-#include <ztoolkit/types.h>
+#include "rect.h"
 
 #include <cairo.h>
 #include <pugl/pugl.h>

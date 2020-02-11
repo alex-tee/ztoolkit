@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Alexandros Theodotou <alex at zrythm dot org>
+ * Copyright (C) 2020 Alexandros Theodotou <alex at zrythm dot org>
  *
  * This file is part of ZToolkit
  *
@@ -17,7 +17,32 @@
  * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __ZTOOLKIT_TYPES_H__
-#define __ZTOOLKIT_TYPES_H__
+#include "ztoolkit/math.h"
+#include "ztoolkit/rect.h"
 
-#endif
+int
+ztk_rect_is_equal (
+  ZtkRect * src,
+  ZtkRect * dest)
+{
+  return
+    math_doubles_equal (
+      src->x, dest->x) &&
+    math_doubles_equal (
+      src->y, dest->y) &&
+    math_doubles_equal (
+      src->width, dest->width) &&
+    math_doubles_equal (
+      src->height, dest->height);
+}
+
+void
+ztk_rect_copy (
+  ZtkRect * dest,
+  ZtkRect * src)
+{
+  dest->x = src->x;
+  dest->y = src->y;
+  dest->width = src->width;
+  dest->height = src->height;
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019-2020 Alexandros Theodotou <alex at zrythm dot org>
+ * Copyright (C) 2020 Alexandros Theodotou <alex at zrythm dot org>
  *
  * This file is part of ZToolkit
  *
@@ -17,7 +17,28 @@
  * along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef __ZTOOLKIT_TYPES_H__
-#define __ZTOOLKIT_TYPES_H__
+#ifndef __ZTOOLKIT_RECT_H__
+#define __ZTOOLKIT_RECT_H__
+
+/**
+ * Wrapper over PuglRect.
+ */
+typedef struct ZtkRect
+{
+  double x;
+  double y;
+  double width;
+  double height;
+} ZtkRect;
+
+int
+ztk_rect_is_equal (
+  ZtkRect * src,
+  ZtkRect * dest);
+
+void
+ztk_rect_copy (
+  ZtkRect * dest,
+  ZtkRect * src);
 
 #endif
