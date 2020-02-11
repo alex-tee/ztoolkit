@@ -272,6 +272,15 @@ ztk_widget_is_hit (
   double      y);
 
 /**
+ * Returns if the widget is hit by the given
+ * ZtkRect.
+ */
+int
+ztk_widget_is_hit_by_rect (
+  ZtkWidget * self,
+  ZtkRect *   rect);
+
+/**
  * Sets the user data.
  */
 void

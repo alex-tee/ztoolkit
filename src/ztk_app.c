@@ -53,37 +53,10 @@ on_expose (
 
   cairo_t* cr = (cairo_t*)puglGetContext(view);
 
+#if 0
   const PuglRect frame  = puglGetFrame(view);
   const double   width  = frame.width;
   const double   height = frame.height;
-
-#if 0
-  // Draw background
-  ztk_color_set_for_cairo (
-    &self->theme.bg_dark_variant2, cr);
-  cairo_rectangle(cr, 0, 0, width, height);
-  cairo_fill(cr);
-
-  /* draw border */
-  cairo_set_source_rgba (cr, 1,1,1, 0.4 );
-  const double padding = 4.0;
-  ztk_cairo_rounded_rectangle (
-    cr, padding, padding, width - padding * 2,
-    height - padding * 2, 1.0, 6.0);
-  cairo_stroke (cr);
-
-  // Draw label
-  const char * lbl = "Z Series";
-  cairo_text_extents_t extents;
-  cairo_set_font_size(cr, 16.0);
-  cairo_text_extents(cr, lbl, &extents);
-  cairo_move_to(
-    cr,
-    (width - extents.width) - 24.0,
-    padding * 2.3 + extents.height);
-  cairo_set_source_rgba(cr, 1, 1, 1, 1);
-  cairo_show_text(cr, lbl);
-#endif
 
   // Scale to view size
   const double scaleX =
@@ -93,8 +66,13 @@ on_expose (
       self->height;
   cairo_scale(cr, scaleX, scaleY);
   cairo_stroke (cr);
+#endif
 
-  ztk_app_draw (self, cr);
+  ZtkRect rect = {
+    expose->x, expose->y, expose->width,
+    expose->height };
+  ztk_app_draw (
+    self, cr, &rect);
 }
 
 static int
@@ -537,17 +515,19 @@ ztk_app_contains_widget (
 }
 
 /**
- * Draws each widget.
+ * Draws each hit widget.
  */
 void
 ztk_app_draw (
   ZtkApp *  self,
-  cairo_t * cr)
+  cairo_t * cr,
+  ZtkRect * rect)
 {
   for (int i = 0; i < self->num_widgets; i++)
     {
       ZtkWidget * widget = self->widgets[i];
-      if (!widget->visible)
+      if (!widget->visible ||
+          !ztk_widget_is_hit_by_rect (widget, rect))
         continue;
 
       widget->draw_cb (

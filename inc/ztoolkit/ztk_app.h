@@ -26,6 +26,7 @@
 #include <pugl/pugl.h>
 
 typedef struct ZtkWidget ZtkWidget;
+typedef struct ZtkRect ZtkRect;
 
 typedef struct ZtkApp
 {
@@ -96,12 +97,13 @@ ztk_app_contains_widget (
   ZtkWidget * widget);
 
 /**
- * Draws each widget.
+ * Draws each hit widget.
  */
 void
 ztk_app_draw (
   ZtkApp *  self,
-  cairo_t * cr);
+  cairo_t * cr,
+  ZtkRect * rect);
 
 void
 ztk_app_idle (

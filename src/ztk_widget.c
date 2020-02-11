@@ -60,6 +60,35 @@ ztk_widget_is_hit (
 }
 
 /**
+ * Returns if the widget is hit by the given
+ * ZtkRect.
+ */
+int
+ztk_widget_is_hit_by_rect (
+  ZtkWidget * self,
+  ZtkRect *   rect)
+{
+  ZtkRect * this = &self->rect;
+
+  int x_hit = 0, y_hit = 0;
+
+  if ((this->x >= rect->x &&
+       this->x <= rect->x + rect->width) ||
+      (this->x + this->width >= rect->x &&
+       this->x + this->width <=
+         rect->x + rect->width))
+    x_hit = 1;
+  if ((this->y >= rect->y &&
+       this->y <= rect->y + rect->height) ||
+      (this->y + this->height >= rect->y &&
+       this->y + this->height <=
+         rect->y + rect->height))
+    y_hit = 1;
+
+  return x_hit && y_hit;
+}
+
+/**
  * Sets the user data.
  */
 void
