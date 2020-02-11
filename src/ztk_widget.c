@@ -76,12 +76,18 @@ ztk_widget_is_hit_by_rect (
        this->x <= rect->x + rect->width) ||
       (this->x + this->width >= rect->x &&
        this->x + this->width <=
+         rect->x + rect->width) ||
+      (this->x < rect->x &&
+       this->x + this->width >
          rect->x + rect->width))
     x_hit = 1;
   if ((this->y >= rect->y &&
        this->y <= rect->y + rect->height) ||
       (this->y + this->height >= rect->y &&
        this->y + this->height <=
+         rect->y + rect->height) ||
+      (this->y < rect->y &&
+       this->y + this->height >
          rect->y + rect->height))
     y_hit = 1;
 
