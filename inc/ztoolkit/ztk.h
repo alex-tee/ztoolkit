@@ -32,6 +32,7 @@
 #include "ztk_color.h"
 #include "ztk_combo_box.h"
 #include "ztk_control.h"
+#include "ztk_dialog.h"
 #include "ztk_drawing_area.h"
 #include "ztk_knob.h"
 #include "ztk_knob_with_label.h"
