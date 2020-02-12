@@ -39,6 +39,11 @@ typedef enum ZtkDialogType
   ZTK_DIALOG_CUSTOM,
 } ZtkDialogType;
 
+typedef enum ZtkDialogAboutLicense
+{
+  ZTK_DIALOG_ABOUT_LICENSE_AGPL_3_PLUS,
+} ZtkDialogAboutLicense;
+
 /**
  * Dialog widget.
  */
@@ -50,8 +55,19 @@ typedef struct ZtkDialog
   /** Close button on the top right. */
   ZtkButton *       close_btn;
 
+  ZtkRect           internal_rect;
+
   /** Dialog title. */
   char              title[256];
+
+  /** Used by about dialogs. */
+  char              copyright[600];
+
+  /** Used by about dialogs. */
+  char              version[600];
+
+  /** Used by about dialogs. */
+  ZtkDialogAboutLicense license;
 
   /** Dialog text. */
   char              text[6000];
@@ -69,6 +85,8 @@ typedef struct ZtkDialog
  */
 ZtkDialog *
 ztk_dialog_new (
+  ZtkApp *        app,
+  ZtkRect *       modal_rect,
   ZtkRect *       rect,
   void *          data);
 
@@ -76,6 +94,9 @@ void
 ztk_dialog_make_about (
   ZtkDialog *     self,
   const char *    title,
+  const char *    version,
+  const char *    copyright,
+  ZtkDialogAboutLicense license,
   const char *    text);
 
 #endif
