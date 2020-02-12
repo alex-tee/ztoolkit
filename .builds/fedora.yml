@@ -1,0 +1,24 @@
+image: fedora/latest
+packages:
+  - gcc-c++
+  - gcc
+  - pkgconfig
+  - python3
+  - gettext
+  - sed
+  - meson
+  - libX11-devel
+  - cairo-devel
+  - librsvg2-devel
+sources:
+  - https://git.sr.ht/~alextee/ztoolkit
+tasks:
+  - setup: |
+      cd ztoolkit
+      meson build -Denable_rsvg=true
+  - build: |
+      cd ztoolkit
+      ninja -C build
+  - test: |
+      cd ztoolkit
+      ninja -C build test

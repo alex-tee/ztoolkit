@@ -1,0 +1,20 @@
+image: archlinux
+packages:
+  - meson
+  - libx11
+  - python
+  - ninja
+  - librsvg
+  - cairo
+sources:
+  - https://git.sr.ht/~alextee/ztoolkit
+tasks:
+  - setup: |
+      cd ztoolkit
+      meson build -Denable_rsvg=true
+  - build: |
+      cd ztoolkit
+      ninja -C build
+  - test: |
+      cd ztoolkit
+      ninja -C build test

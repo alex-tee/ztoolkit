@@ -1,6 +1,8 @@
 ZToolkit
 ========
 
+[![builds.sr.ht status](https://builds.sr.ht/~alextee/ztoolkit.svg)](https://builds.sr.ht/~alextee/ztoolkit?)
+
 ZToolkit (Ztk) is a cross-platform GUI toolkit
 heavily inspired by GTK.
 

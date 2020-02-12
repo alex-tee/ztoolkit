@@ -25,11 +25,5 @@ option (
   'enable_rsvg',
   type: 'boolean',
   value: false,
-  description: '''Enable SVG support through librsvg.
-This requires the whole glib stack.''')
-
-option (
-  'strict_flags',
-  type: 'boolean',
-  value: false,
-  description: 'Strict compilation flags')
+  description: '''Enable SVG support through
+librsvg. This requires the whole glib stack.''')

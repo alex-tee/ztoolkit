@@ -1,0 +1,22 @@
+image: freebsd/latest
+packages:
+  - meson
+  - ninja
+  - python36
+  - pkgconf
+  - libX11
+  - libXext
+  - cairo
+  - librsvg2
+sources:
+  - https://git.sr.ht/~alextee/ztoolkit
+tasks:
+  - setup: |
+      cd ztoolkit
+      meson build -Denable_rsvg=true
+  - build: |
+      cd ztoolkit
+      ninja -C build
+  - test: |
+      cd ztoolkit
+      ninja -C build test
