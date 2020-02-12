@@ -186,16 +186,3 @@ if not meson.is_subproject()
     description: 'A GUI toolkit for LV2 plugins',
     )
 endif
-
-if meson.version().version_compare('>=0.53')
-summary({
-  'Build type': get_option('buildtype'),
-  'Strict flags': get_option('strict_flags'),
-  }, section: 'General')
-
-summary({
-  'prefix': prefix,
-  'includedir': includedir,
-  'libdir': libdir,
-  }, section: 'Directories')
-endif
