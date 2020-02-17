@@ -147,6 +147,7 @@ post_event_to_widgets (
             if (w->visible && w->key_event_cb)
               {
                 w->key_event_cb (w, ev);
+                w->mod = ev->state;
               }
           }
           break;
@@ -164,6 +165,7 @@ post_event_to_widgets (
                 w->last_btn_press = ev->time;
                 w->state |=
                   ZTK_WIDGET_STATE_PRESSED;
+                w->mod = ev->state;
                 if (ev->button == 3)
                   {
                     w->state |=
@@ -198,6 +200,7 @@ post_event_to_widgets (
             w->state &=
               (unsigned int)
               ~ZTK_WIDGET_STATE_RIGHT_PRESSED;
+            w->mod = ev->state;
             w->before_last_btn_release =
               w->last_btn_release;
             w->last_btn_release = ev->time;
@@ -216,6 +219,7 @@ post_event_to_widgets (
           {
             const PuglEventMotion * ev =
               (const PuglEventMotion *) event;
+            w->mod = ev->state;
             if (w->visible &&
                 ztk_widget_is_hit (
                   w, ev->x, ev->y) &&
@@ -242,6 +246,7 @@ post_event_to_widgets (
           {
             const PuglEventMotion * ev =
               (const PuglEventMotion *) event;
+            w->mod = ev->state;
             if (w->state & ZTK_WIDGET_STATE_HOVERED)
               {
                 w->state &=
@@ -260,6 +265,7 @@ post_event_to_widgets (
           {
             const PuglEventScroll * ev =
               (const PuglEventScroll *) event;
+            w->mod = ev->state;
             if (w->visible &&
                 ztk_widget_is_hit (
                   w, ev->x, ev->y) &&

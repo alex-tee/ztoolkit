@@ -105,13 +105,21 @@ update_cb (
               break;
             }
 
+          float sensitivity;
+          if (w->mod & PUGL_MOD_SHIFT)
+            {
+              sensitivity = self->sensitivity * 0.2f;
+            }
+          else
+            {
+              sensitivity = self->sensitivity;
+            }
           SET_REAL_VAL (
             REAL_VAL_FROM_CONTROL (
               CLAMP (
                 CONTROL_VAL_FROM_REAL (
                   GET_REAL_VAL) +
-                    self->sensitivity *
-                      (float) delta,
+                    sensitivity * (float) delta,
                  0.0f, 1.0f)));
         }
       else /* absolute mode */

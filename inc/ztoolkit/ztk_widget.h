@@ -163,6 +163,9 @@ typedef struct ZtkWidget
 
   ZtkWidgetState    state;
 
+  /** Current mod. */
+  PuglMod           mod;
+
   /**
    * The type this widget is.
    */
