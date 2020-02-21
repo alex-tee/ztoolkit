@@ -180,7 +180,7 @@ if not meson.is_subproject()
   pkg_mod = import('pkgconfig')
   pkg_mod.generate(
     libraries: ztoolkit_lib,
-    version: '0.1',
+    version: '0.1.0',
     name: 'ztoolkit',
     filebase: 'ztoolkit',
     description: 'A GUI toolkit for LV2 plugins',
