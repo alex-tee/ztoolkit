@@ -20,7 +20,7 @@
 #ifndef __Z_TOOLKIT_ZTK_LABEL_H__
 #define __Z_TOOLKIT_ZTK_LABEL_H__
 
-#include "ztoolkit/ztk.h"
+#include "ztk.h"
 
 /**
  * Label widget.

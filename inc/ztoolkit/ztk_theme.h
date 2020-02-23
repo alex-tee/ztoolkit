@@ -20,7 +20,7 @@
 #ifndef __Z_TOOLKIT_ZTK_THEME_H__
 #define __Z_TOOLKIT_ZTK_THEME_H__
 
-#include "ztoolkit/ztk_color.h"
+#include "ztk_color.h"
 
 /**
  * Theme colors.

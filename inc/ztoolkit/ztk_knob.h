@@ -20,8 +20,8 @@
 #ifndef __Z_TOOLKIT_ZTK_KNOB_H__
 #define __Z_TOOLKIT_ZTK_KNOB_H__
 
-#include "ztoolkit/ztk_color.h"
-#include "ztoolkit/ztk_widget.h"
+#include "ztk_color.h"
+#include "ztk_widget.h"
 
 /**
  * Knob widget.

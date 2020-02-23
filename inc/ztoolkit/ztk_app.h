@@ -23,7 +23,9 @@
 #include "ztoolkit/ztk_theme.h"
 
 #include <cairo.h>
-#include <pugl/pugl.h>
+
+typedef struct PuglWorldImpl PuglWorld;
+typedef struct PuglViewImpl PuglView;
 
 typedef struct ZtkWidget ZtkWidget;
 typedef struct ZtkRect ZtkRect;

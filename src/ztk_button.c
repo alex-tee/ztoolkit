@@ -21,6 +21,7 @@
 #include <string.h>
 
 #include <ztoolkit/ztk.h>
+#include "pugl.h"
 
 static void
 button_draw_cb (

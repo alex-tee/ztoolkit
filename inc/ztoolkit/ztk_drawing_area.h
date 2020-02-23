@@ -26,7 +26,7 @@
 #ifndef __Z_TOOLKIT_ZTK_DRAWING_AREA_H__
 #define __Z_TOOLKIT_ZTK_DRAWING_AREA_H__
 
-#include "ztoolkit/ztk_widget.h"
+#include "ztk_widget.h"
 
 /**
  * @addtogroup ztoolkit

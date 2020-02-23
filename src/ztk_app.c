@@ -23,8 +23,8 @@
 
 #include "ztoolkit/ztk.h"
 
-#include <pugl/pugl.h>
-#include <pugl/pugl_cairo.h>
+#include "pugl/pugl.h"
+#include "pugl/pugl_cairo.h"
 
 static void
 on_close (PuglView* view)

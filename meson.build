@@ -87,6 +87,8 @@ inc_dirs = [
   include_directories('.'),
   include_directories('inc'),
   include_directories('pugl'),
+  include_directories(
+    join_paths ('pugl', 'pugl')),
   ]
 
 # cflags

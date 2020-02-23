@@ -20,9 +20,9 @@
 #ifndef __Z_TOOLKIT_ZTK_BUTTON_H__
 #define __Z_TOOLKIT_ZTK_BUTTON_H__
 
-#include "ztoolkit/rsvg.h"
-#include "ztoolkit/ztk_color.h"
-#include "ztoolkit/ztk_widget.h"
+#include "rsvg.h"
+#include "ztk_color.h"
+#include "ztk_widget.h"
 
 typedef struct ZtkButton ZtkButton;
 

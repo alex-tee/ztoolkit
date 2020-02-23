@@ -16,11 +16,26 @@
 # along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
 
 installable_headers += files([
+  'colors.h',
+  'log.h',
+  'math.h',
+  'rect.h',
+  'rsvg.h',
+  'types.h',
+  'ztk.h',
   'ztk_app.h',
+  'ztk_button.h',
+  'ztk_cairo.h',
   'ztk_color.h',
+  'ztk_combo_box.h',
+  'ztk_control.h',
+  'ztk_dialog.h',
+  'ztk_drawing_area.h',
   'ztk_knob.h',
   'ztk_knob_with_label.h',
   'ztk_label.h',
+  'ztk_theme.h',
   'ztk_widget.h',
-  'ztk.h',
+  join_paths ('..', '..', 'pugl', 'pugl', 'pugl.h'),
+  join_paths ('..', '..', 'pugl', 'pugl', 'pugl_cairo.h'),
   ])

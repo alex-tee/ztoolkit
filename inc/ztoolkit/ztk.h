@@ -21,6 +21,8 @@
 #define __Z_TOOLKIT_ZTK_H__
 
 #include "ztoolkit_config.h"
+#include "pugl.h"
+
 #include "math.h"
 #include "log.h"
 #include "rect.h"
