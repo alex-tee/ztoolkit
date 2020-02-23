@@ -17,7 +17,7 @@
 
 project (
   'ztoolkit', ['c'],
-  version: '0.1.0',
+  version: '0.1.1',
   license: 'AGPLv3+',
   meson_version: '>= 0.43.0',
   default_options: [
@@ -182,7 +182,7 @@ if not meson.is_subproject()
   pkg_mod = import('pkgconfig')
   pkg_mod.generate(
     libraries: ztoolkit_lib,
-    version: '0.1.0',
+    version: '0.1.1',
     name: 'ztoolkit',
     filebase: 'ztoolkit',
     description: 'A GUI toolkit for LV2 plugins',
