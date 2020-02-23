@@ -15,34 +15,18 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with ZPlugins.  If not, see <https://www.gnu.org/licenses/>.
 
-pugl_srcs = [
+pugl_srcs = files([
   join_paths ('pugl', 'detail', 'implementation.c'),
-  ]
+  ])
 
 if os_linux or os_freebsd
-  pugl_srcs += [
+  pugl_srcs += files([
     join_paths ('pugl', 'detail', 'x11.c'),
     join_paths ('pugl', 'detail', 'x11_cairo.c'),
-    ]
+    ])
 elif os_windows
-  pugl_srcs += [
+  pugl_srcs += files([
     join_paths ('pugl', 'detail', 'win.c'),
     join_paths ('pugl', 'detail', 'win_cairo.c'),
-    ]
+    ])
 endif
-
-pugl_deps = [
-  dependency('cairo', version: '>=1.0.0'),
-  ]
-
-pugl_inc = [
-  include_directories ('.'),
-  ]
-pugl = static_library (
-  'pugl',
-  sources: pugl_srcs,
-  dependencies: pugl_deps,
-  c_args: '-fvisibility=hidden',
-  include_directories: pugl_inc,
-  install: false,
-)

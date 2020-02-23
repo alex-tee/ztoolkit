@@ -43,10 +43,10 @@ ztoolkit_lib = static_library(
   sources: [
     ztoolkit_srcs,
     config_h,
+    pugl_srcs,
     ],
   dependencies: deps,
   include_directories: inc_dirs,
-  link_whole: pugl,
   c_args: ztoolkit_cargs,
   install: not meson.is_subproject(),
   )
