@@ -16,7 +16,7 @@
 # along with ZToolkit.  If not, see <https://www.gnu.org/licenses/>.
 
 project (
-  'ztoolkit', ['c'],
+  'ztoolkit', [ 'c' ],
   version: '0.1.2',
   license: 'AGPLv3+',
   meson_version: '>= 0.43.0',
@@ -64,6 +64,15 @@ cdata = configuration_data ()
 if os_linux or os_freebsd
   deps += dependency('x11')
   cdata.set('HAVE_X11', 1)
+elif os_darwin
+  add_languages ('objc')
+  deps += dependency(
+    'appleframeworks',
+    modules: [
+      'foundation',
+      'cocoa',
+      'appkit',
+      ])
 endif
 
 if get_option('enable_rsvg')
@@ -182,7 +191,7 @@ if not meson.is_subproject()
   pkg_mod = import('pkgconfig')
   pkg_mod.generate(
     libraries: ztoolkit_lib,
-    version: '0.1.1',
+    version: '0.1.2',
     name: 'ztoolkit',
     filebase: 'ztoolkit',
     description: 'A GUI toolkit for LV2 plugins',

@@ -29,4 +29,9 @@ elif os_windows
     join_paths ('pugl', 'detail', 'win.c'),
     join_paths ('pugl', 'detail', 'win_cairo.c'),
     ])
+elif os_darwin
+  pugl_srcs += files([
+    join_paths ('pugl', 'detail', 'mac.m'),
+    join_paths ('pugl', 'detail', 'mac_cairo.m'),
+    ])
 endif
