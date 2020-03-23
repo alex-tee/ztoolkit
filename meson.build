@@ -17,7 +17,7 @@
 
 project (
   'ztoolkit', ['c'],
-  version: '0.1.1',
+  version: '0.1.2',
   license: 'AGPLv3+',
   meson_version: '>= 0.43.0',
   default_options: [
@@ -61,7 +61,7 @@ deps = [
   ]
 
 cdata = configuration_data ()
-if os_linux
+if os_linux or os_freebsd
   deps += dependency('x11')
   cdata.set('HAVE_X11', 1)
 endif
