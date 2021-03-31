@@ -44,7 +44,7 @@ ztk_rsvg_load_svg (
     {
       ztk_error (
         "An error occurred parsing the SVG file at "
-        "%s: %s", abs_path);
+        "%s: %s", abs_path, err->message);
       g_object_unref (file);
       return NULL;
     }

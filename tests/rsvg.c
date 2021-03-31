@@ -26,7 +26,16 @@ int main (
 {
   ZtkRsvgHandle * handle =
     ztk_rsvg_load_svg (argv[1]);
-  ztk_assert (handle);
+
+  if (strcmp (argv[1], "invalid"))
+    {
+      ztk_assert (handle);
+    }
+  else
+    {
+      ztk_assert (!handle);
+      return 0;
+    }
 
   int width =
     ztk_rsvg_get_width (handle);

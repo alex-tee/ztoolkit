@@ -48,4 +48,5 @@ if get_option('enable_rsvg')
   test ('rsvg_test', e,
     args: join_paths(
       meson.current_source_dir(), 'test.svg'))
+  test ('rsvg_test_invalid', e, args: 'invalid')
 endif
